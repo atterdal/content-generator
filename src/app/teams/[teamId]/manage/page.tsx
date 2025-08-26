@@ -64,6 +64,7 @@ export default function TeamManagePage() {
   const [matches, setMatches] = useState<Match[]>([]);
   const [selectedTab, setSelectedTab] = useState('players');
   const [modalType, setModalType] = useState<'player' | 'match' | 'csv'>('player');
+  const { isOpen: isCsvOpen, onOpen: onCsvOpen, onOpenChange: onCsvOpenChange } = useDisclosure();
   const [csvData, setCsvData] = useState('');
   
   // Form states
@@ -188,6 +189,48 @@ export default function TeamManagePage() {
     localStorage.setItem(`team-${teamId}-matches`, JSON.stringify(updatedMatches));
   };
 
+  const handleCsvImport = () => {
+    if (!csvData.trim()) return;
+    
+    const lines = csvData.trim().split('\n');
+    const headers = lines[0].toLowerCase().split(',').map(h => h.trim());
+    
+    // Expected headers: name, number, position, age (optional), image (optional)
+    const newPlayers: Player[] = [];
+    
+    for (let i = 1; i < lines.length; i++) {
+      const values = lines[i].split(',').map(v => v.trim());
+      if (values.length < 3) continue; // Skip incomplete rows
+      
+      const nameIndex = headers.indexOf('name') || headers.indexOf('namn');
+      const numberIndex = headers.indexOf('number') || headers.indexOf('nummer');
+      const positionIndex = headers.indexOf('position');
+      const ageIndex = headers.indexOf('age') || headers.indexOf('ålder');
+      const imageIndex = headers.indexOf('image') || headers.indexOf('bild');
+      
+      if (nameIndex === -1 || numberIndex === -1 || positionIndex === -1) continue;
+      
+      const player: Player = {
+        id: Date.now().toString() + i,
+        name: values[nameIndex],
+        number: parseInt(values[numberIndex]),
+        position: values[positionIndex],
+        age: ageIndex !== -1 && values[ageIndex] ? parseInt(values[ageIndex]) : undefined,
+        image: imageIndex !== -1 ? values[imageIndex] : undefined
+      };
+      
+      newPlayers.push(player);
+    }
+    
+    if (newPlayers.length > 0) {
+      const updatedPlayers = [...players, ...newPlayers];
+      setPlayers(updatedPlayers);
+      localStorage.setItem(`team-${teamId}-players`, JSON.stringify(updatedPlayers));
+      setCsvData('');
+      onCsvOpenChange();
+    }
+  };
+
   const generateBulkContent = () => {
     router.push(`/teams/${teamId}/bulk-generate`);
   };
@@ -266,13 +309,24 @@ export default function TeamManagePage() {
               <Card>
                 <CardHeader className="flex justify-between items-center">
                   <h2 className="text-lg font-semibold">Spelarlista</h2>
-                  <Button
-                    className="font-bold text-white"
-                    style={{ backgroundColor: brand.colors.royalBlue }}
-                    onClick={handleAddPlayer}
-                  >
-                    + Lägg till spelare
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="bordered"
+                      onClick={() => {
+                        setModalType('csv');
+                        onCsvOpen();
+                      }}
+                    >
+                      📄 Import CSV
+                    </Button>
+                    <Button
+                      className="font-bold text-white"
+                      style={{ backgroundColor: brand.colors.royalBlue }}
+                      onClick={handleAddPlayer}
+                    >
+                      + Lägg till spelare
+                    </Button>
+                  </div>
                 </CardHeader>
                 <CardBody>
                   {players.length === 0 ? (
@@ -434,8 +488,11 @@ export default function TeamManagePage() {
                       <Select
                         label="Position"
                         placeholder="Välj position"
-                        value={playerForm.position}
-                        onChange={(e) => setPlayerForm({...playerForm, position: e.target.value})}
+                        selectedKeys={playerForm.position ? [playerForm.position] : []}
+                        onSelectionChange={(keys) => {
+                          const value = Array.from(keys)[0] as string;
+                          setPlayerForm({...playerForm, position: value});
+                        }}
                         variant="bordered"
                         isRequired
                       >
@@ -496,8 +553,11 @@ export default function TeamManagePage() {
                       />
                       <Select
                         label="Hemmamatch?"
-                        value={matchForm.isHome.toString()}
-                        onChange={(e) => setMatchForm({...matchForm, isHome: e.target.value === 'true'})}
+                        selectedKeys={[matchForm.isHome.toString()]}
+                        onSelectionChange={(keys) => {
+                          const value = Array.from(keys)[0] as string;
+                          setMatchForm({...matchForm, isHome: value === 'true'});
+                        }}
                         variant="bordered"
                       >
                         <SelectItem key="true">Ja - Hemmamatch</SelectItem>
@@ -505,8 +565,11 @@ export default function TeamManagePage() {
                       </Select>
                       <Select
                         label="Matchtyp"
-                        value={matchForm.type}
-                        onChange={(e) => setMatchForm({...matchForm, type: e.target.value as any})}
+                        selectedKeys={[matchForm.type]}
+                        onSelectionChange={(keys) => {
+                          const value = Array.from(keys)[0] as string;
+                          setMatchForm({...matchForm, type: value as any});
+                        }}
                         variant="bordered"
                       >
                         <SelectItem key="league">Liga/Serie</SelectItem>
@@ -531,6 +594,58 @@ export default function TeamManagePage() {
                     }
                   >
                     Spara
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+
+        {/* CSV Import Modal */}
+        <Modal isOpen={isCsvOpen} onOpenChange={onCsvOpenChange} size="2xl">
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader>
+                  Importera spelare från CSV
+                </ModalHeader>
+                <ModalBody>
+                  <div className="space-y-4">
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                      <h4 className="font-medium mb-2">Format för CSV-fil:</h4>
+                      <code className="text-sm bg-white p-2 rounded block">
+                        name,number,position,age,image<br/>
+                        Oliver Andersson,7,Anfallare,16,https://...<br/>
+                        William Karlsson,10,Mittfältare,15,
+                      </code>
+                      <p className="text-sm text-gray-600 mt-2">
+                        Obligatoriska kolumner: name, number, position<br/>
+                        Valfria kolumner: age, image
+                      </p>
+                    </div>
+                    
+                    <Textarea
+                      label="CSV Data"
+                      placeholder="Klistra in din CSV-data här..."
+                      value={csvData}
+                      onChange={(e) => setCsvData(e.target.value)}
+                      variant="bordered"
+                      minRows={8}
+                      maxRows={15}
+                    />
+                  </div>
+                </ModalBody>
+                <ModalFooter>
+                  <Button variant="bordered" onPress={onClose}>
+                    Avbryt
+                  </Button>
+                  <Button 
+                    className="font-bold text-white"
+                    style={{ backgroundColor: brand.colors.royalBlue }}
+                    onPress={handleCsvImport}
+                    isDisabled={!csvData.trim()}
+                  >
+                    Importera Spelare
                   </Button>
                 </ModalFooter>
               </>
