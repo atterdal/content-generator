@@ -224,7 +224,7 @@ export default function TeamDashboardMantinePage() {
         </motion.div>
 
         {/* Tabs */}
-        <Tabs value={selectedTab} onChange={setSelectedTab} mb="xl">
+        <Tabs value={selectedTab} onChange={(value) => setSelectedTab(value || 'posts')} mb="xl">
           <Tabs.List>
             <Tabs.Tab value="posts">Skapa Inlägg</Tabs.Tab>
             <Tabs.Tab value="players" rightSection={<Badge size="sm">{players.length}</Badge>}>

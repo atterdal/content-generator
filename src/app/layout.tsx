@@ -30,7 +30,7 @@ const haboTheme = createTheme({
   fontFamilyMonospace: 'Monaco, Courier, monospace',
   headings: { 
     fontFamily: '"Alverata Black", Georgia, serif',
-    fontWeight: 900,
+    fontWeight: '900',
   },
   
   colors: {

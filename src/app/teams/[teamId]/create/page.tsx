@@ -307,7 +307,7 @@ export default function TeamCreateMantinePage() {
                   label="Layout"
                   data={LAYOUTS}
                   value={selectedLayout}
-                  onChange={setSelectedLayout}
+                  onChange={(value) => setSelectedLayout(value || '')}
                 />
                 
                 <Select
@@ -317,7 +317,7 @@ export default function TeamCreateMantinePage() {
                     label: theme.name.charAt(0).toUpperCase() + theme.name.slice(1)
                   }))}
                   value={selectedTheme}
-                  onChange={setSelectedTheme}
+                  onChange={(value) => setSelectedTheme(value || '')}
                 />
                 
                 <Group justify="space-between">

@@ -128,21 +128,21 @@ export default function WhoWeArePage() {
         {/* Facts Section */}
         <Box>
           <Title order={2} mb={24}>Habo IF i siffror</Title>
-          <SimpleGrid cols={{ base: 2, sm: 4 }} spacing={16}>
+          <SimpleGrid cols={{ base: 2, sm: 4 }} spacing="md">
             <Paper p={20} radius="md" withBorder ta="center">
-              <Text size={32} fw={700} c="blue">600+</Text>
+              <Text size="xl" fw={700} c="blue">600+</Text>
               <Text size="sm" c="dimmed">Aktiva medlemmar</Text>
             </Paper>
             <Paper p={20} radius="md" withBorder ta="center">
-              <Text size={32} fw={700} c="blue">40+</Text>
+              <Text size="xl" fw={700} c="blue">40+</Text>
               <Text size="sm" c="dimmed">Lag</Text>
             </Paper>
             <Paper p={20} radius="md" withBorder ta="center">
-              <Text size={32} fw={700} c="blue">100+</Text>
+              <Text size="xl" fw={700} c="blue">100+</Text>
               <Text size="sm" c="dimmed">Ledare</Text>
             </Paper>
             <Paper p={20} radius="md" withBorder ta="center">
-              <Text size={32} fw={700} c="blue">1929</Text>
+              <Text size="xl" fw={700} c="blue">1929</Text>
               <Text size="sm" c="dimmed">Grundad</Text>
             </Paper>
           </SimpleGrid>

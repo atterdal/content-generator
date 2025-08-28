@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
 import * as React from 'react';
 import { useSearchParams } from 'next/navigation';
 import { 
@@ -72,7 +72,7 @@ interface OrganizationConfig {
   getAvailablePostTypes: any;
 }
 
-export default function LayerExamplesPage() {
+function LayerExamplesPage() {
   const searchParams = useSearchParams();
   const [isGenerating, setIsGenerating] = useState(false);
   const [layerData, setLayerData] = useState<Record<string, string>>({});
@@ -515,4 +515,12 @@ function getLayerDescription(layerName: string): string {
   };
   
   return descriptions[layerName] || 'Layer example';
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LayerExamplesPage />
+    </Suspense>
+  );
 }

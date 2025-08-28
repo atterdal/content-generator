@@ -119,7 +119,7 @@ export default function ToneVoicePage() {
 
       {/* Main Content */}
       <Container size="lg" py="xl">
-        <Stack spacing="xl">
+        <Stack gap="xl">
           {/* Our Voice Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
