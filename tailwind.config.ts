@@ -1,5 +1,4 @@
 import type { Config } from 'tailwindcss';
-import { heroui } from '@heroui/react';
 
 const config: Config = {
   content: [
@@ -7,8 +6,6 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/apps/**/*.{js,ts,jsx,tsx,mdx}',
-    // HeroUI content
-    './node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
     extend: {
@@ -34,102 +31,7 @@ const config: Config = {
     },
   },
   darkMode: 'class',
-  plugins: [
-    heroui({
-      themes: {
-        light: {
-          colors: {
-            background: '#FFFFFF',
-            foreground: '#11181C',
-            primary: {
-              50: '#E8F0FE',
-              100: '#C5D9FC',
-              200: '#9EC1FA',
-              300: '#77A9F8',
-              400: '#5091F6',
-              500: '#0629A0', // Habo IF Royal Blue
-              600: '#051F7A',
-              700: '#041558',
-              800: '#030C36',
-              900: '#020414',
-              DEFAULT: '#0629A0',
-              foreground: '#FFFFFF',
-            },
-            secondary: {
-              50: '#FAF6EE',
-              100: '#F2E8D5',
-              200: '#E9D9BC',
-              300: '#E0CAA3',
-              400: '#D7BB8A',
-              500: '#B6975C', // Habo IF Heritage Gold
-              600: '#9E7E45',
-              700: '#86652E',
-              800: '#6E4C17',
-              900: '#563300',
-              DEFAULT: '#B6975C',
-              foreground: '#FFFFFF',
-            },
-            success: {
-              DEFAULT: '#17C964',
-              foreground: '#FFFFFF',
-            },
-            warning: {
-              DEFAULT: '#F5A524',
-              foreground: '#FFFFFF',
-            },
-            danger: {
-              DEFAULT: '#F31260',
-              foreground: '#FFFFFF',
-            },
-          },
-        },
-        dark: {
-          colors: {
-            background: '#0C0C0C',
-            foreground: '#ECEDEE',
-            primary: {
-              50: '#020414',
-              100: '#030C36',
-              200: '#041558',
-              300: '#051F7A',
-              400: '#0629A0',
-              500: '#5091F6',
-              600: '#77A9F8',
-              700: '#9EC1FA',
-              800: '#C5D9FC',
-              900: '#E8F0FE',
-              DEFAULT: '#0629A0',
-              foreground: '#FFFFFF',
-            },
-            secondary: {
-              DEFAULT: '#B6975C',
-              foreground: '#FFFFFF',
-            },
-          },
-        },
-        // Custom Habo IF theme
-        habo: {
-          extend: 'light',
-          colors: {
-            background: '#f0ede6', // Classic Beige
-            foreground: '#0629A0', // Royal Blue
-            primary: {
-              DEFAULT: '#0629A0',
-              foreground: '#FFFFFF',
-            },
-            secondary: {
-              DEFAULT: '#B6975C',
-              foreground: '#FFFFFF',
-            },
-            default: {
-              DEFAULT: '#f0ede6',
-              foreground: '#0629A0',
-            },
-          },
-        },
-      },
-    }),
-  ],
+  plugins: [],
 };
 
 export default config;

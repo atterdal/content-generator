@@ -3,14 +3,12 @@
 import { useState, useEffect } from 'react';
 import { 
   Card, 
-  CardBody, 
-  CardHeader,
   Button,
-  Link,
-  Divider,
-  Chip,
-  Code
-} from '@heroui/react';
+  Badge,
+  Code,
+  Anchor
+} from '@mantine/core';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { HABO_IF_BRAND } from '@/apps/habo-if/config/brand';
 
@@ -44,13 +42,13 @@ export default function LayoutsPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center gap-6">
-              <Link href="/brand-guidelines">
+              <Anchor component={Link} href="/brand-guidelines" underline="never">
                 <img 
                   src="/images/logos/habo-if-2025.png" 
                   alt="Habo IF"
                   className="h-8 object-contain"
                 />
-              </Link>
+              </Anchor>
               <span 
                 className="text-base font-black uppercase tracking-wider"
                 style={{ 
@@ -63,7 +61,7 @@ export default function LayoutsPage() {
             </div>
             
             <Button 
-              as={Link}
+              component={Link}
               href="/brand-guidelines"
               size="sm"
               className="text-white font-bold uppercase tracking-wider"
@@ -105,15 +103,15 @@ export default function LayoutsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Layout system
               </h2>
               <p className="text-gray-600">
                 Ett strukturerat 4×6 grid som skapar visuell konsistens och professionell känsla.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="bg-white border rounded-lg p-8 relative shadow-sm">
                 <div className="grid grid-cols-4 grid-rows-6 gap-2 h-64">
                   {/* Grid visualization */}
@@ -127,12 +125,12 @@ export default function LayoutsPage() {
                   ))}
                 </div>
                 <div className="absolute top-4 left-4">
-                  <Chip size="sm" variant="flat">
+                  <Badge size="sm" variant="light">
                     4 kolumner × 6 rader
-                  </Chip>
+                  </Badge>
                 </div>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -145,19 +143,19 @@ export default function LayoutsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Grid system
               </h2>
               <p className="text-gray-600">
                 Ett strukturerat 4×6 grid som tillåter flexibla layouter samtidigt som det säkerställer konsistens.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="space-y-8">
                 {/* Example Layout Breakdown */}
                 <Card className="bg-gray-50 shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-sm font-semibold text-gray-900 mb-4">Layout komponenter</h4>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div className="flex items-center gap-3">
@@ -177,12 +175,12 @@ export default function LayoutsPage() {
                         <span>Logo placement</span>
                       </div>
                     </div>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
 
                 {/* Grid Rules */}
                 <Card className="bg-blue-50 border-blue-200 shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-sm font-semibold text-gray-900 mb-3">Grid regler</h4>
                     <ul className="text-sm text-gray-700 space-y-2">
                       <li>• <strong>Tessellering:</strong> Inga luckor eller överlapp tillåts</li>
@@ -190,12 +188,12 @@ export default function LayoutsPage() {
                       <li>• <strong>Asymmetri:</strong> Föredras över symmetriska layouts</li>
                       <li>• <strong>Balans:</strong> Max 6 block för att behålla enkelhet</li>
                     </ul>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
 
                 {/* Technical Specs Quick Reference */}
                 <Card className="shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                       <div>
                         <p className="text-2xl font-bold" style={{ color: brand.colors.royalBlue }}>1080px</p>
@@ -214,10 +212,10 @@ export default function LayoutsPage() {
                         <p className="text-xs text-gray-600">Hero block</p>
                       </div>
                     </div>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -230,19 +228,19 @@ export default function LayoutsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Layout examples
               </h2>
               <p className="text-gray-600">
                 Tre huvudtyper av layouter som täcker olika användningsområden och visuella behov.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="space-y-8">
                 {/* Hero Left Layout */}
                 <Card className="shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-3">Hero Left</h4>
                     <div className="grid grid-cols-6 grid-rows-4 gap-1 h-32 text-xs mb-3">
                       <div className="col-span-1 row-span-1 flex items-center justify-center text-xs font-medium rounded-sm" 
@@ -266,12 +264,12 @@ export default function LayoutsPage() {
                            style={{ background: brand.colors.gradient50deg }}></div>
                     </div>
                     <p className="text-xs text-gray-500">Hero dominerar vänstra sidan, skapar stark asymmetrisk balans</p>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
 
                 {/* Hero Center Layout */}
                 <Card className="shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-3">Hero Center</h4>
                     <div className="grid grid-cols-6 grid-rows-4 gap-1 h-32 text-xs mb-3">
                       <div className="col-span-6 row-span-1 flex items-center justify-center text-white rounded-sm" 
@@ -288,12 +286,12 @@ export default function LayoutsPage() {
                            style={{ background: brand.colors.gradient50deg }}>BLUE TEXT HELA RADEN</div>
                     </div>
                     <p className="text-xs text-gray-500">Centrerat hero med symmetriska ramar av blått</p>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
 
                 {/* Hero Right Layout */}
                 <Card className="shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-3">Hero Right</h4>
                     <div className="grid grid-cols-6 grid-rows-4 gap-1 h-32 text-xs mb-3">
                       <div className="col-span-2 row-span-2 flex items-center justify-center text-xs font-medium rounded-sm" 
@@ -316,10 +314,10 @@ export default function LayoutsPage() {
                            style={{ background: brand.colors.gradient50deg }}>BLUE TEXTURE</div>
                     </div>
                     <p className="text-xs text-gray-500">Hero på höger sida balanseras av mixed content till vänster</p>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -332,18 +330,18 @@ export default function LayoutsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Layer system
               </h2>
               <p className="text-gray-600">
                 Layouterna byggs upp i lager som renderas i specifik ordning för att skapa djup och rikhet.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="space-y-6">
                 <Card className="bg-gray-50 shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-sm font-semibold text-gray-900 mb-4">Exploded view</h4>
                     <div className="bg-white rounded p-4 border border-gray-200">
                       <p className="text-sm text-gray-600 text-center py-8">
@@ -354,12 +352,12 @@ export default function LayoutsPage() {
                     <p className="text-xs text-gray-500 mt-2">
                       3D isometric view som visar hur alla lager bygger upp den slutliga designen
                     </p>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
 
                 <div className="grid grid-cols-2 gap-6">
                   <Card className="bg-gray-50 shadow-sm">
-                    <CardBody className="p-4">
+                    <Card.Section className="p-4">
                       <h5 className="text-xs font-semibold text-gray-900 mb-3">Layer struktur</h5>
                       <div className="space-y-2 text-xs">
                         {[
@@ -376,20 +374,20 @@ export default function LayoutsPage() {
                           </div>
                         ))}
                       </div>
-                    </CardBody>
+                    </Card.Section>
                   </Card>
                   
                   <Card className="bg-gray-50 shadow-sm">
-                    <CardBody className="p-4">
+                    <Card.Section className="p-4">
                       <h5 className="text-xs font-semibold text-gray-900 mb-3">Grid overlay</h5>
                       <div className="bg-white rounded aspect-square border border-gray-200 flex items-center justify-center shadow-sm">
                         <p className="text-lg font-bold text-gray-500 text-center">4×6<br/>grid</p>
                       </div>
-                    </CardBody>
+                    </Card.Section>
                   </Card>
                 </div>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -402,18 +400,18 @@ export default function LayoutsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Tekniska specifikationer
               </h2>
               <p className="text-gray-600">
                 Tekniska krav och specifikationer för korrekt implementering av layoutsystemet.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="space-y-8">
                 <Card className="bg-gray-50 shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-sm font-semibold text-gray-900 mb-4">Canvas konfiguration</h4>
                     <div className="space-y-3">
                       {[
@@ -424,15 +422,15 @@ export default function LayoutsPage() {
                       ].map((spec, index) => (
                         <div key={index} className="flex justify-between text-sm p-2 bg-white rounded border">
                           <span className="text-gray-600">{spec.label}</span>
-                          <Code size="sm">{spec.value}</Code>
+                          <Code>{spec.value}</Code>
                         </div>
                       ))}
                     </div>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
 
                 <Card className="bg-blue-50 border-blue-200 shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-sm font-semibold text-gray-900 mb-4">CSS Grid implementering</h4>
                     <Code className="text-xs bg-white p-4 rounded border overflow-x-auto block whitespace-pre font-mono">
 {`.habo-grid {
@@ -448,11 +446,11 @@ export default function LayoutsPage() {
   grid-row: span 4;
 }`}
                     </Code>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
 
                 <Card className="bg-yellow-50 border-yellow-200 shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-sm font-semibold text-gray-900 mb-3">Layoutgenerering</h4>
                     <ul className="text-sm text-gray-700 space-y-2">
                       <li>• <strong>18 kombinationer:</strong> 6 layouter × 3 färgteman</li>
@@ -460,10 +458,10 @@ export default function LayoutsPage() {
                       <li>• <strong>Tessellering:</strong> Valideras för att undvika luckor</li>
                       <li>• <strong>Hero placering:</strong> Vänster, center eller höger</li>
                     </ul>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
       </main>

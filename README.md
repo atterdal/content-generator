@@ -43,24 +43,30 @@ src/
 ├── apps/habo-if/                # Habo IF-specifik kod
 │   ├── components/
 │   │   └── HaboComponents.ts    # Habo IF komponenter
+│   ├── services/
+│   │   └── GraphicsService.ts   # Återanvändbar grafikgenerering
 │   ├── generators/
 │   │   └── haboLayerGenerator.ts # Layer-generering för Habo IF
 │   └── config/
 │       └── brand.ts              # Varumärkeskonfiguration
 │
-├── lib/graphics-engine/          # Agnostisk graphics engine
-│   ├── Canvas.ts                 # Canvas rendering (createGenericCanvas)
-│   ├── types.ts                  # Block/Floater klasser
-│   ├── layouts.ts                # Standard layouter (6 st)
-│   ├── layerExporter.ts          # Export av individuella lager
-│   └── exploded3d.ts             # 3D-visualiseringar
+├── lib/
+│   ├── graphics-engine/          # Agnostisk graphics engine
+│   │   ├── Canvas.ts             # Canvas rendering (createGenericCanvas)
+│   │   ├── types.ts              # Block/Floater klasser
+│   │   ├── layouts.ts            # Standard layouter (6 st)
+│   │   ├── layerExporter.ts      # Export av individuella lager
+│   │   └── exploded3d.ts         # 3D-visualiseringar
+│   └── post-types/
+│       └── index.ts              # Post-typer och mock data
 │
 └── app/                          # Next.js App Router
     ├── teams/                    # Lagledarsystem
     │   ├── login/                # Inloggning
     │   ├── [teamId]/
     │   │   ├── dashboard/        # Lagdashboard
-    │   │   └── create/           # Skapa grafik
+    │   │   ├── create/           # Skapa enskild grafik
+    │   │   └── bulk-generate/    # Batch-generering
     │   └── layer-examples/       # Utvecklingsverktyg
     └── brand-guidelines/         # Varumärkesriktlinjer
 ```
@@ -68,15 +74,17 @@ src/
 ## 🎨 Användning
 
 ### För lagledare
-1. Logga in på `/teams/login`
-2. Välj mall eller spelare från dashboard
-3. Anpassa innehåll och stil
-4. Exportera som PNG för sociala medier
+1. **Inloggning:** `/teams/login` med teamID och lösenord
+2. **Dashboard:** Välj post-typ eller specifik spelare
+3. **Enskild grafik:** `/teams/[teamId]/create` - Anpassa innehåll och stil
+4. **Batch-generering:** `/teams/[teamId]/bulk-generate` - Massa-skapa grafik
+5. **Export:** Ladda ner som PNG eller ZIP-fil
 
 ### För utvecklare
-- `/layer-examples` - Visualisera och testa lager
-- Använd `haboLayerGenerator.ts` för alla genereringar
-- Följ Block/Floater-mönstret för nya komponenter
+- **GraphicsService:** Centraliserad grafikgenerering - använd för alla nya funktioner
+- **Layer-exempel:** `/layer-examples` - Visualisera och testa lager
+- **Post-typer:** Definieras i `/lib/post-types/` med bulk-kapabilitet
+- **Arkitektur:** Följ separation mellan agnostisk engine och Habo-specifika services
 
 ## 🛠️ Teknisk Stack
 
@@ -130,7 +138,33 @@ Layer 0: Bakgrunder
 
 ## 🔧 API-referens
 
-### Skapa grafik
+### GraphicsService (REKOMMENDERAS)
+```typescript
+import { GraphicsService } from '@/apps/habo-if/services/GraphicsService';
+
+// Skapa enskild grafik
+const graphic = await GraphicsService.generateGraphic({
+  templateType: 'matchday',
+  teamName: 'Habo IF P15',
+  layoutIndex: 0,
+  themeIndex: 1,
+  includeWatermark: true,
+  mainText: 'MOT MULLSJÖ IF',
+  subText: '2024-03-15 • 14:00'
+});
+
+// Batch-generering
+const results = await GraphicsService.generateBatchGraphics(
+  {
+    templateType: 'goal-scorer',
+    teamName: 'Habo IF P15',
+    includeWatermark: true
+  },
+  playersArray
+);
+```
+
+### Direktanvändning av Graphics Engine (AVANCERAT)
 ```typescript
 import { createGenericCanvas } from '@/lib/graphics-engine/Canvas';
 import { createHaboMainHeader } from '@/apps/habo-if/components/HaboComponents';
@@ -155,21 +189,22 @@ const layers = await exportHaboLayerExamples(canvas, {
 ## 📝 Status
 
 ### ✅ Implementerat
-- Graphics Engine med Block/Floater-system
-- Smart texthantering med line-wrapping
-- Lagledarsystem med dashboard
-- Layer-export och 3D-visualisering
-- 6 standard layouter
-- Responsiv design
+- **Graphics Engine:** Block/Floater-system med 6 standard layouter
+- **GraphicsService:** Återanvändbar service för grafikgenerering
+- **Lagledarsystem:** Inloggning, dashboard, enskild grafik
+- **Batch-generering:** Massa-skapa grafik med ZIP-export
+- **Post-typer:** Matchdag, målskytt, matchens lirare, startelva
+- **UI-bibliotek:** Mantine med Lucide React ikoner
+- **Layer-export:** 3D-visualisering och utvecklingsverktyg
 
 ### 🔄 Pågående
-- Performance-optimering
-- Utökade post-typer
+- Performance-optimering av canvas-rendering
+- Utökade post-typer för träning och event
 
 ### 📋 Planerat
-- Batch-generering
-- Schemaläggning
-- API-integrationer
+- Schemaläggning av post-publicering
+- API-integrationer (matcher, spelare)
+- Team-management (spelare, roller)
 
 ## 🤝 Support
 
@@ -177,6 +212,7 @@ För teknisk support, se [Graphics-Engine.md](./Graphics-Engine.md) för detalje
 
 ---
 
-**Version:** 3.0  
+**Version:** 3.1  
+**Senast uppdaterad:** 2025-08-28  
 **Utvecklad för:** Habo IF  
 **Licens:** Privat

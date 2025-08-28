@@ -200,17 +200,16 @@ export default function TeamLoginMantinePage() {
               </Stack>
             </form>
 
-              <Divider label="DEMO" labelPosition="center" my="md" />
+            <Divider label="DEMO" labelPosition="center" my="md" />
 
-              <Paper p="md" radius="md" bg="gray.0">
-                <Text size="sm" fw={600} mb="xs">
-                  Test-inloggning:
-                </Text>
-                <Text size="xs" c="dimmed">
-                  Välj valfritt lag och använd lösenord: <Text span fw={600} ff="monospace">habo2024</Text>
-                </Text>
-              </Paper>
-            </Stack>
+            <Paper p="md" radius="md" bg="gray.0">
+              <Text size="sm" fw={600} mb="xs">
+                Test-inloggning:
+              </Text>
+              <Text size="xs" c="dimmed">
+                Välj valfritt lag och använd lösenord: <Text span fw={600} ff="monospace">habo2024</Text>
+              </Text>
+            </Paper>
           </Paper>
 
           <Text c="white" ta="center" size="xs" mt="xl" opacity={0.7}>

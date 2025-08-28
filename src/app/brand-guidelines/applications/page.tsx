@@ -2,13 +2,10 @@
 
 import { 
   Card, 
-  CardBody, 
-  CardHeader,
   Button,
-  Link,
-  Divider,
-  Chip
-} from '@heroui/react';
+  Anchor
+} from '@mantine/core';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { HABO_IF_BRAND } from '@/apps/habo-if/config/brand';
 
@@ -22,13 +19,13 @@ export default function ApplicationsPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center gap-6">
-              <Link href="/brand-guidelines">
+              <Anchor component={Link} href="/brand-guidelines" underline="never">
                 <img 
                   src="/images/logos/habo-if-2025.png" 
                   alt="Habo IF"
                   className="h-8 object-contain"
                 />
-              </Link>
+              </Anchor>
               <span 
                 className="text-base font-black uppercase tracking-wider"
                 style={{ 
@@ -41,7 +38,7 @@ export default function ApplicationsPage() {
             </div>
             
             <Button 
-              as={Link}
+              component={Link}
               href="/brand-guidelines"
               size="sm"
               className="text-white font-bold uppercase tracking-wider"
@@ -83,19 +80,19 @@ export default function ApplicationsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Överblick
               </h2>
               <p className="text-gray-600">
                 Exempel på hur grafisk profil tillämpas över olika medieformat.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="grid grid-cols-2 gap-6">
                 {/* Instagram Post Example */}
                 <Card className="shadow-md" style={{ background: brand.colors.gradientPrimary }}>
-                  <CardBody className="rounded-lg aspect-square p-8 relative">
+                  <Card.Section className="rounded-lg aspect-square p-8 relative">
                     <div className="absolute top-4 right-4">
                       <img 
                         src="/images/logos/habo-if-2025-white.png" 
@@ -117,12 +114,12 @@ export default function ApplicationsPage() {
                         Instagram 1080×1080px
                       </p>
                     </div>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
 
                 {/* Business Card Example */}
                 <Card className="shadow-md" style={{ backgroundColor: brand.colors.classicBeige }}>
-                  <CardBody className="rounded-lg aspect-square p-8 relative">
+                  <Card.Section className="rounded-lg aspect-square p-8 relative">
                     <div className="absolute top-4 right-4">
                       <img 
                         src="/images/logos/habo-if-2025.png" 
@@ -150,10 +147,10 @@ export default function ApplicationsPage() {
                         85×55mm print format
                       </p>
                     </div>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -166,15 +163,15 @@ export default function ApplicationsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Sociala medier
               </h2>
               <p className="text-gray-600">
                 Konsekvent tillämpning av grafisk profil över sociala medieplattformar för stark varumärkeskännedom.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {/* Instagram Post */}
@@ -186,7 +183,7 @@ export default function ApplicationsPage() {
                     className="space-y-3"
                   >
                     <Card className="shadow-lg" style={{ background: brand.colors.gradientPrimary }}>
-                      <CardBody className="aspect-square p-6">
+                      <Card.Section className="aspect-square p-6">
                         <div className="h-full flex flex-col justify-between">
                           <div className="flex justify-between items-start">
                             <div>
@@ -214,7 +211,7 @@ export default function ApplicationsPage() {
                             </p>
                           </div>
                         </div>
-                      </CardBody>
+                      </Card.Section>
                     </Card>
                     <div>
                       <h5 className="font-semibold text-gray-900 mb-1">Instagram Post</h5>
@@ -232,7 +229,7 @@ export default function ApplicationsPage() {
                     className="space-y-3"
                   >
                     <Card className="shadow-lg" style={{ background: brand.colors.gradientDark }}>
-                      <CardBody className="aspect-[16/9] p-6">
+                      <Card.Section className="aspect-[16/9] p-6">
                         <div className="h-full flex items-center justify-between">
                           <div>
                             <h4 
@@ -253,7 +250,7 @@ export default function ApplicationsPage() {
                           </div>
                           <img src="/images/logos/habo-if-2025-white.png" alt="Logo" className="w-12 h-12" />
                         </div>
-                      </CardBody>
+                      </Card.Section>
                     </Card>
                     <div>
                       <h5 className="font-semibold text-gray-900 mb-1">Facebook Cover</h5>
@@ -271,7 +268,7 @@ export default function ApplicationsPage() {
                     className="space-y-3"
                   >
                     <Card className="shadow-lg" style={{ backgroundColor: brand.colors.classicBeige }}>
-                      <CardBody className="aspect-[9/16] p-4">
+                      <Card.Section className="aspect-[9/16] p-4">
                         <div className="h-full flex flex-col justify-between">
                           <div className="text-center">
                             <img src="/images/logos/habo-if-2025.png" alt="Logo" className="w-12 h-12 mx-auto mb-3" />
@@ -306,7 +303,7 @@ export default function ApplicationsPage() {
                             </p>
                           </div>
                         </div>
-                      </CardBody>
+                      </Card.Section>
                     </Card>
                     <div>
                       <h5 className="font-semibold text-gray-900 mb-1">Story Template</h5>
@@ -318,7 +315,7 @@ export default function ApplicationsPage() {
 
                 {/* Social Media Guidelines */}
                 <Card className="bg-gray-50 shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-4">Sociala medier riktlinjer</h4>
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
@@ -340,10 +337,10 @@ export default function ApplicationsPage() {
                         </ul>
                       </div>
                     </div>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -356,20 +353,20 @@ export default function ApplicationsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Trycksaker
               </h2>
               <p className="text-gray-600">
                 Professionella trycksaker som stärker varumärket och skapar trovärdighet i alla sammanhang.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* Business Cards */}
                   <Card className="shadow-sm" style={{ backgroundColor: brand.colors.classicBeige }}>
-                    <CardBody className="aspect-[1.618/1] p-4">
+                    <Card.Section className="aspect-[1.618/1] p-4">
                       <div className="h-full flex flex-col justify-between">
                         <div>
                           <img src="/images/logos/habo-if-2025.png" alt="Logo" className="w-8 h-8 mb-2" />
@@ -395,12 +392,12 @@ export default function ApplicationsPage() {
                           </p>
                         </div>
                       </div>
-                    </CardBody>
+                    </Card.Section>
                   </Card>
 
                   {/* Letterhead */}
                   <Card className="shadow-sm border">
-                    <CardBody className="aspect-[1/1.41] p-6" style={{ backgroundColor: brand.colors.pureWhite }}>
+                    <Card.Section className="aspect-[1/1.41] p-6" style={{ backgroundColor: brand.colors.pureWhite }}>
                       <div className="h-full flex flex-col">
                         <div className="flex items-center justify-between mb-6">
                           <img src="/images/logos/habo-if-2025.png" alt="Logo" className="w-10 h-10" />
@@ -416,12 +413,12 @@ export default function ApplicationsPage() {
                           </div>
                         </div>
                       </div>
-                    </CardBody>
+                    </Card.Section>
                   </Card>
 
                   {/* Poster */}
                   <Card className="shadow-sm" style={{ background: brand.colors.gradientPrimary }}>
-                    <CardBody className="aspect-[2/3] p-6">
+                    <Card.Section className="aspect-[2/3] p-6">
                       <div className="h-full flex flex-col justify-between text-center">
                         <div>
                           <h4 
@@ -450,7 +447,7 @@ export default function ApplicationsPage() {
                           </p>
                         </div>
                       </div>
-                    </CardBody>
+                    </Card.Section>
                   </Card>
                 </div>
 
@@ -474,7 +471,7 @@ export default function ApplicationsPage() {
 
                 {/* Print Specifications */}
                 <Card className="bg-blue-50 border-blue-200 shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-4">Tryckspecifikationer</h4>
                     <div className="grid md:grid-cols-3 gap-6">
                       <div>
@@ -502,10 +499,10 @@ export default function ApplicationsPage() {
                         </ul>
                       </div>
                     </div>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -518,20 +515,20 @@ export default function ApplicationsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Digitala tillämpningar
               </h2>
               <p className="text-gray-600">
                 Digitala tillämpningar som säkerställer konsistent varumärkesupplevelse online.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="space-y-8">
                 <div className="grid md:grid-cols-2 gap-8">
                   {/* Website Header */}
                   <Card className="shadow-sm" style={{ background: brand.colors.gradientPrimary }}>
-                    <CardBody className="aspect-[2/1] p-6">
+                    <Card.Section className="aspect-[2/1] p-6">
                       <div className="h-full flex items-center justify-between">
                         <div>
                           <h4 
@@ -552,12 +549,12 @@ export default function ApplicationsPage() {
                         </div>
                         <img src="/images/logos/habo-if-2025-white.png" alt="Logo" className="w-16 h-16" />
                       </div>
-                    </CardBody>
+                    </Card.Section>
                   </Card>
 
                   {/* Email Signature */}
                   <Card className="shadow-sm border">
-                    <CardBody className="p-4" style={{ backgroundColor: brand.colors.pureWhite }}>
+                    <Card.Section className="p-4" style={{ backgroundColor: brand.colors.pureWhite }}>
                       <div className="flex items-center gap-4">
                         <img src="/images/logos/habo-if-2025.png" alt="Logo" className="w-8 h-8" />
                         <div>
@@ -582,7 +579,7 @@ export default function ApplicationsPage() {
                           <p className="text-xs text-gray-600">marcus@habo-if.se | 0123-456789</p>
                         </div>
                       </div>
-                    </CardBody>
+                    </Card.Section>
                   </Card>
                 </div>
 
@@ -599,7 +596,7 @@ export default function ApplicationsPage() {
 
                 {/* Usage Guidelines */}
                 <Card className="bg-green-50 border-green-200 shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-4">Användningsriktlinjer</h4>
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
@@ -627,10 +624,10 @@ export default function ApplicationsPage() {
                         </ul>
                       </div>
                     </div>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
       </main>

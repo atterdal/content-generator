@@ -3,13 +3,11 @@
 import { useState } from 'react';
 import { 
   Card, 
-  CardBody, 
-  CardHeader,
   Button,
-  Link,
-  Divider,
-  Chip
-} from '@heroui/react';
+  Badge,
+  Anchor
+} from '@mantine/core';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { HABO_IF_BRAND } from '@/apps/habo-if/config/brand';
 
@@ -30,13 +28,13 @@ export default function ColorsPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center gap-6">
-              <Link href="/brand-guidelines">
+              <Anchor component={Link} href="/brand-guidelines" underline="never">
                 <img 
                   src="/images/logos/habo-if-2025.png" 
                   alt="Habo IF"
                   className="h-8 object-contain"
                 />
-              </Link>
+              </Anchor>
               <span 
                 className="text-base font-black uppercase tracking-wider"
                 style={{ 
@@ -49,7 +47,7 @@ export default function ColorsPage() {
             </div>
             
             <Button 
-              as={Link}
+              component={Link}
               href="/brand-guidelines"
               size="sm"
               className="text-white font-bold uppercase tracking-wider"
@@ -91,15 +89,15 @@ export default function ColorsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Huvudfärger
               </h2>
               <p className="text-gray-600">
                 Våra tre grundfärger som definierar Habo IFs visuella identitet.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="grid grid-cols-3 gap-6">
                 <div 
                   className="aspect-square rounded-lg cursor-pointer transition-transform hover:scale-105 shadow-md"
@@ -141,7 +139,7 @@ export default function ColorsPage() {
                   )}
                 </div>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -154,15 +152,15 @@ export default function ColorsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Färgspecifikationer
               </h2>
               <p className="text-gray-600">
                 Detaljerade värden och användningsområden för våra huvudfärger.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="space-y-8">
                 {/* Royal Blue */}
                 <div className="grid grid-cols-3 gap-6">
@@ -260,7 +258,7 @@ export default function ColorsPage() {
                   </div>
                 </div>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -273,15 +271,15 @@ export default function ColorsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Sekundära färger
               </h2>
               <p className="text-gray-600">
                 Stödfärger som kompletterar huvudpaletten och skapar djup i designen.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="grid grid-cols-3 gap-6">
                 <div className="text-center">
                   <div 
@@ -401,7 +399,7 @@ export default function ColorsPage() {
                   <p className="text-xs text-gray-500">Neutrala ytor och bakgrunder</p>
                 </div>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -414,19 +412,19 @@ export default function ColorsPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Användning
               </h2>
               <p className="text-gray-600">
                 Riktlinjer för hur färgerna används korrekt i olika sammanhang.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="space-y-8">
                 {/* On Blue Background */}
                 <div className="rounded-lg p-8 shadow-lg" style={{ background: brand.colors.gradientPrimary }}>
-                  <Chip size="sm" color="success" className="mb-4">Korrekt</Chip>
+                  <Badge size="sm" color="green" className="mb-4">Korrekt</Badge>
                   <h4 
                     className="text-2xl font-black uppercase mb-3"
                     style={{ 
@@ -447,7 +445,7 @@ export default function ColorsPage() {
 
                 {/* On Light Background */}
                 <div className="rounded-lg p-8 shadow-lg border" style={{ backgroundColor: brand.colors.classicBeige }}>
-                  <Chip size="sm" color="success" className="mb-4">Korrekt</Chip>
+                  <Badge size="sm" color="green" className="mb-4">Korrekt</Badge>
                   <h4 
                     className="text-2xl font-black uppercase mb-3"
                     style={{ 
@@ -466,7 +464,7 @@ export default function ColorsPage() {
                   </p>
                 </div>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
       </main>

@@ -2,14 +2,12 @@
 
 import { 
   Card, 
-  CardBody, 
-  CardHeader,
   Button,
-  Link,
-  Divider,
-  Chip,
+  Badge,
+  Anchor,
   Checkbox
-} from '@heroui/react';
+} from '@mantine/core';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { HABO_IF_BRAND } from '@/apps/habo-if/config/brand';
 
@@ -23,13 +21,13 @@ export default function AccessibilityPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center gap-6">
-              <Link href="/brand-guidelines">
+              <Anchor component={Link} href="/brand-guidelines" underline="never">
                 <img 
                   src="/images/logos/habo-if-2025.png" 
                   alt="Habo IF"
                   className="h-8 object-contain"
                 />
-              </Link>
+              </Anchor>
               <span 
                 className="text-base font-black uppercase tracking-wider"
                 style={{ 
@@ -42,7 +40,7 @@ export default function AccessibilityPage() {
             </div>
             
             <Button 
-              as={Link}
+              component={Link}
               href="/brand-guidelines"
               size="sm"
               className="text-white font-bold uppercase tracking-wider"
@@ -84,74 +82,74 @@ export default function AccessibilityPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 WCAG-principer
               </h2>
               <p className="text-gray-600">
                 Våra riktlinjer följer WCAG 2.1 AA-standard för optimal tillgänglighet.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Color Contrast */}
                 <Card className="shadow-sm">
-                  <CardBody className="p-6 text-center">
+                  <Card.Section className="p-6 text-center">
                     <div className="w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl font-bold mb-4 mx-auto"
                          style={{ backgroundColor: brand.colors.royalBlue }}>
                       🎨
                     </div>
                     <h4 className="font-semibold mb-2">Färgkontrast</h4>
                     <p className="text-sm text-gray-600 mb-4">Minst 4.5:1 kontrastförhållande för normal text</p>
-                    <Chip
+                    <Badge
                       size="sm"
                       style={{ color: brand.colors.heritageGold }}
-                      variant="flat"
+                      variant="light"
                     >
                       WCAG AA
-                    </Chip>
-                  </CardBody>
+                    </Badge>
+                  </Card.Section>
                 </Card>
 
                 {/* Typography */}
                 <Card className="shadow-sm">
-                  <CardBody className="p-6 text-center">
+                  <Card.Section className="p-6 text-center">
                     <div className="w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl font-bold mb-4 mx-auto"
                          style={{ backgroundColor: brand.colors.heritageGold }}>
                       📝
                     </div>
                     <h4 className="font-semibold mb-2">Typografi</h4>
                     <p className="text-sm text-gray-600 mb-4">Minst 18px textstorlek för optimal läsbarhet</p>
-                    <Chip
+                    <Badge
                       size="sm"
                       style={{ color: brand.colors.royalBlue }}
-                      variant="flat"
+                      variant="light"
                     >
                       {brand.typography.secondary.sizes.body}px minimum
-                    </Chip>
-                  </CardBody>
+                    </Badge>
+                  </Card.Section>
                 </Card>
 
                 {/* Focus States */}
                 <Card className="shadow-sm">
-                  <CardBody className="p-6 text-center">
+                  <Card.Section className="p-6 text-center">
                     <div className="w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl font-bold mb-4 mx-auto"
                          style={{ backgroundColor: brand.colors.royalBlue }}>
                       🎯
                     </div>
                     <h4 className="font-semibold mb-2">Fokus</h4>
                     <p className="text-sm text-gray-600 mb-4">Tydliga fokusindikationer för tangentbordsnavigering</p>
-                    <Chip
+                    <Badge
                       size="sm"
                       style={{ color: brand.colors.heritageGold }}
-                      variant="flat"
+                      variant="light"
                     >
                       2px outline
-                    </Chip>
-                  </CardBody>
+                    </Badge>
+                  </Card.Section>
                 </Card>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -164,15 +162,15 @@ export default function AccessibilityPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Färgkontrast
               </h2>
               <p className="text-gray-600">
                 Alla färgkombinationer i Habo IFs palett uppfyller WCAG AA-krav för tillgänglighet.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="space-y-8">
                 {/* Good Contrasts */}
                 <div>
@@ -183,7 +181,7 @@ export default function AccessibilityPage() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Royal Blue on White */}
                     <Card className="shadow-sm" style={{ backgroundColor: brand.colors.pureWhite }}>
-                      <CardBody className="p-6">
+                      <Card.Section className="p-6">
                         <h5 
                           className="text-xl font-black uppercase mb-2"
                           style={{ 
@@ -202,15 +200,15 @@ export default function AccessibilityPage() {
                         >
                           På vit bakgrund
                         </p>
-                        <Chip size="sm" color="success" variant="flat">
+                        <Badge size="sm" color="green" variant="light">
                           Kontrast: 8.2:1 ✓
-                        </Chip>
-                      </CardBody>
+                        </Badge>
+                      </Card.Section>
                     </Card>
 
                     {/* Heritage Gold on White */}
                     <Card className="shadow-sm" style={{ backgroundColor: brand.colors.pureWhite }}>
-                      <CardBody className="p-6">
+                      <Card.Section className="p-6">
                         <h5 
                           className="text-xl font-black uppercase mb-2"
                           style={{ 
@@ -229,15 +227,15 @@ export default function AccessibilityPage() {
                         >
                           På vit bakgrund
                         </p>
-                        <Chip size="sm" color="success" variant="flat">
+                        <Badge size="sm" color="green" variant="light">
                           Kontrast: 5.1:1 ✓
-                        </Chip>
-                      </CardBody>
+                        </Badge>
+                      </Card.Section>
                     </Card>
 
                     {/* White on Royal Blue */}
                     <Card className="shadow-sm" style={{ backgroundColor: brand.colors.royalBlue }}>
-                      <CardBody className="p-6">
+                      <Card.Section className="p-6">
                         <h5 
                           className="text-xl font-black uppercase mb-2 text-white"
                           style={{ fontFamily: brand.typography.primary.fontFamily }}
@@ -250,10 +248,10 @@ export default function AccessibilityPage() {
                         >
                           På blå bakgrund
                         </p>
-                        <Chip size="sm" color="success" variant="flat">
+                        <Badge size="sm" color="green" variant="light">
                           Kontrast: 8.2:1 ✓
-                        </Chip>
-                      </CardBody>
+                        </Badge>
+                      </Card.Section>
                     </Card>
                   </div>
                 </div>
@@ -264,7 +262,7 @@ export default function AccessibilityPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Classic Beige */}
                     <Card className="shadow-sm" style={{ backgroundColor: brand.colors.classicBeige }}>
-                      <CardBody className="p-6">
+                      <Card.Section className="p-6">
                         <h5 
                           className="text-lg font-black uppercase mb-2"
                           style={{ 
@@ -284,19 +282,19 @@ export default function AccessibilityPage() {
                           Neutral bakgrund för text-block
                         </p>
                         <div className="flex flex-col gap-1">
-                          <Chip size="sm" color="success" variant="flat">
+                          <Badge size="sm" color="green" variant="light">
                             Kontrast med blå: 7.8:1 ✓
-                          </Chip>
-                          <Chip size="sm" color="success" variant="flat">
+                          </Badge>
+                          <Badge size="sm" color="green" variant="light">
                             Kontrast med guld: 4.9:1 ✓
-                          </Chip>
+                          </Badge>
                         </div>
-                      </CardBody>
+                      </Card.Section>
                     </Card>
 
                     {/* Deep Background */}
                     <Card className="shadow-sm border" style={{ backgroundColor: brand.colors.deepBackground }}>
-                      <CardBody className="p-6">
+                      <Card.Section className="p-6">
                         <h5 
                           className="text-lg font-black uppercase mb-2"
                           style={{ 
@@ -316,19 +314,19 @@ export default function AccessibilityPage() {
                           Alternativ beige-ton
                         </p>
                         <div className="flex flex-col gap-1">
-                          <Chip size="sm" color="success" variant="flat">
+                          <Badge size="sm" color="green" variant="light">
                             Kontrast med blå: 8.1:1 ✓
-                          </Chip>
-                          <Chip size="sm" color="success" variant="flat">
+                          </Badge>
+                          <Badge size="sm" color="green" variant="light">
                             Kontrast med guld: 5.2:1 ✓
-                          </Chip>
+                          </Badge>
                         </div>
-                      </CardBody>
+                      </Card.Section>
                     </Card>
                   </div>
                 </div>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -341,19 +339,19 @@ export default function AccessibilityPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Typografisk tillgänglighet
               </h2>
               <p className="text-gray-600">
                 Typografiska riktlinjer som säkerställer läsbarhet för alla användare.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="space-y-8">
                 {/* Font Sizes */}
                 <Card className="bg-gray-50 shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-4">Minsta textstorlekar</h4>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                       <div className="text-center">
@@ -409,13 +407,13 @@ export default function AccessibilityPage() {
                         <p className="text-sm text-gray-600">Body: {brand.typography.secondary.sizes.body}px</p>
                       </div>
                     </div>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
 
                 {/* Reading Guidelines */}
                 <div className="grid md:grid-cols-2 gap-8">
                   <Card className="shadow-sm">
-                    <CardBody className="p-6">
+                    <Card.Section className="p-6">
                       <h4 className="text-lg font-semibold text-gray-900 mb-4">Läsbarhet</h4>
                       <div className="space-y-3">
                         {[
@@ -433,7 +431,7 @@ export default function AccessibilityPage() {
                           }
                         ].map((item, index) => (
                           <div key={index} className="flex items-start gap-3">
-                            <Chip size="sm" color="success" className="mt-0.5">✓</Chip>
+                            <Badge size="sm" color="green" className="mt-0.5">✓</Badge>
                             <div>
                               <p className="font-medium text-gray-900">{item.title}</p>
                               <p className="text-sm text-gray-600">{item.description}</p>
@@ -441,11 +439,11 @@ export default function AccessibilityPage() {
                           </div>
                         ))}
                       </div>
-                    </CardBody>
+                    </Card.Section>
                   </Card>
 
                   <Card className="shadow-sm">
-                    <CardBody className="p-6">
+                    <Card.Section className="p-6">
                       <h4 className="text-lg font-semibold text-gray-900 mb-4">Hierarki</h4>
                       <div className="space-y-3">
                         {[
@@ -463,7 +461,7 @@ export default function AccessibilityPage() {
                           }
                         ].map((item, index) => (
                           <div key={index} className="flex items-start gap-3">
-                            <Chip size="sm" color="primary" variant="flat" className="mt-0.5">i</Chip>
+                            <Badge size="sm" color="blue" variant="light" className="mt-0.5">i</Badge>
                             <div>
                               <p className="font-medium text-gray-900">{item.title}</p>
                               <p className="text-sm text-gray-600">{item.description}</p>
@@ -471,11 +469,11 @@ export default function AccessibilityPage() {
                           </div>
                         ))}
                       </div>
-                    </CardBody>
+                    </Card.Section>
                   </Card>
                 </div>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
 
@@ -488,22 +486,22 @@ export default function AccessibilityPage() {
           className="mb-16"
         >
           <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+            <Card.Section className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Implementation
               </h2>
               <p className="text-gray-600">
                 Praktiska riktlinjer för att implementera tillgänglig design i alla Habo IF-material.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </Card.Section>
+            <Card.Section className="p-8 pt-0">
               <div className="space-y-8">
                 {/* Digital Guidelines */}
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-4">Digital material</h4>
                   <div className="grid md:grid-cols-2 gap-6">
                     <Card className="bg-green-50 border-green-200 shadow-sm">
-                      <CardBody className="p-6">
+                      <Card.Section className="p-6">
                         <div className="flex items-center gap-2 mb-3">
                           <span className="text-green-600 text-lg">✓</span>
                           <h5 className="font-medium text-green-800">Rekommenderat</h5>
@@ -515,10 +513,10 @@ export default function AccessibilityPage() {
                           <li>• Säkerställ tangentbordsnavigering</li>
                           <li>• Använd ARIA-attribut när nödvändigt</li>
                         </ul>
-                      </CardBody>
+                      </Card.Section>
                     </Card>
                     <Card className="bg-red-50 border-red-200 shadow-sm">
-                      <CardBody className="p-6">
+                      <Card.Section className="p-6">
                         <div className="flex items-center gap-2 mb-3">
                           <span className="text-red-600 text-lg">✗</span>
                           <h5 className="font-medium text-red-800">Undvik</h5>
@@ -530,14 +528,14 @@ export default function AccessibilityPage() {
                           <li>• Blinkande eller snabbt rörligt innehåll</li>
                           <li>• Text i bilder utan alternativ</li>
                         </ul>
-                      </CardBody>
+                      </Card.Section>
                     </Card>
                   </div>
                 </div>
 
                 {/* Print Guidelines */}
                 <Card className="bg-blue-50 border-blue-200 shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-4">Tryckt material</h4>
                     <div className="grid md:grid-cols-3 gap-6">
                       <div>
@@ -553,47 +551,35 @@ export default function AccessibilityPage() {
                         <p className="text-sm text-gray-600">Tydlig hierarki, god vitrymd mellan element</p>
                       </div>
                     </div>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
 
                 {/* Testing Checklist */}
                 <Card className="bg-gray-50 shadow-sm">
-                  <CardBody className="p-6">
+                  <Card.Section className="p-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-4">Checklista för tillgänglighet</h4>
                     <div className="grid md:grid-cols-2 gap-8">
                       <div>
                         <h5 className="font-medium text-gray-900 mb-3">Färg & Kontrast</h5>
                         <div className="space-y-2">
-                          <Checkbox size="sm">
-                            <span className="text-sm">Alla textfärger har minst 4.5:1 kontrast</span>
-                          </Checkbox>
-                          <Checkbox size="sm">
-                            <span className="text-sm">Information förmedlas inte endast genom färg</span>
-                          </Checkbox>
-                          <Checkbox size="sm">
-                            <span className="text-sm">Fokusindikatorer är tydligt synliga</span>
-                          </Checkbox>
+                          <Checkbox size="sm" label="Alla textfärger har minst 4.5:1 kontrast" />
+                          <Checkbox size="sm" label="Information förmedlas inte endast genom färg" />
+                          <Checkbox size="sm" label="Fokusindikatorer är tydligt synliga" />
                         </div>
                       </div>
                       <div>
                         <h5 className="font-medium text-gray-900 mb-3">Struktur & Navigation</h5>
                         <div className="space-y-2">
-                          <Checkbox size="sm">
-                            <span className="text-sm">Logisk rubrikhierarki (h1, h2, h3)</span>
-                          </Checkbox>
-                          <Checkbox size="sm">
-                            <span className="text-sm">Alt-text på alla informationsbärande bilder</span>
-                          </Checkbox>
-                          <Checkbox size="sm">
-                            <span className="text-sm">Kan navigeras endast med tangentbord</span>
-                          </Checkbox>
+                          <Checkbox size="sm" label="Logisk rubrikhierarki (h1, h2, h3)" />
+                          <Checkbox size="sm" label="Alt-text på alla informationsbärande bilder" />
+                          <Checkbox size="sm" label="Kan navigeras endast med tangentbord" />
                         </div>
                       </div>
                     </div>
-                  </CardBody>
+                  </Card.Section>
                 </Card>
               </div>
-            </CardBody>
+            </Card.Section>
           </Card>
         </motion.section>
       </main>

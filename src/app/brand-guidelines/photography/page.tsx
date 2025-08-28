@@ -1,15 +1,14 @@
 'use client';
 
 import { 
-  Card, 
-  CardBody, 
-  CardHeader,
+  Paper, 
+  Stack,
   Button,
-  Link,
   Divider,
-  Chip,
-  Image
-} from '@heroui/react';
+  Badge
+} from '@mantine/core';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { HABO_IF_BRAND } from '@/apps/habo-if/config/brand';
 
@@ -46,7 +45,7 @@ export default function PhotographyPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center gap-6">
-              <Link href="/brand-guidelines">
+              <Link href="/brand-guidelines" style={{ textDecoration: 'none' }}>
                 <img 
                   src="/images/logos/habo-if-2025.png" 
                   alt="Habo IF"
@@ -65,14 +64,18 @@ export default function PhotographyPage() {
             </div>
             
             <Button 
-              as={Link}
+              component={Link}
               href="/brand-guidelines"
               size="sm"
-              className="text-white font-bold uppercase tracking-wider"
+              leftSection={<ArrowLeft size={16} />}
               style={{
                 backgroundColor: brand.colors.royalBlue,
+                color: 'white',
                 fontFamily: brand.typography.primary.fontFamily,
-                fontSize: '13px'
+                fontSize: '13px',
+                fontWeight: 'bold',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
               }}
             >
               TILLBAKA
@@ -106,16 +109,16 @@ export default function PhotographyPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border border-gray-200">
-            <CardHeader className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Spelarporträtt
-              </h2>
-              <p className="text-gray-600">
-                Exempel på professionella spelarbilder som används i vårt grafiska material.
-              </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+          <Paper withBorder>
+            <Stack p="xl">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Spelarporträtt
+                </h2>
+                <p className="text-gray-600">
+                  Exempel på professionella spelarbilder som används i vårt grafiska material.
+                </p>
+              </div>
               <div className="grid grid-cols-2 gap-6">
                 {playerImages.slice(0, 2).map((image, index) => (
                   <motion.div 
@@ -126,18 +129,15 @@ export default function PhotographyPage() {
                     viewport={{ once: true }}
                     className="space-y-3"
                   >
-                    <Card className="shadow-md">
-                      <CardBody className="p-0">
-                        <div className="aspect-[3/4] rounded-lg overflow-hidden">
-                          <Image
-                            src={image.src}
-                            alt={image.name}
-                            className="w-full h-full object-cover"
-                            radius="none"
-                          />
-                        </div>
-                      </CardBody>
-                    </Card>
+                    <Paper shadow="md">
+                      <div className="aspect-[3/4] rounded-lg overflow-hidden">
+                        <img
+                          src={image.src}
+                          alt={image.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </Paper>
                     <div>
                       <h4 
                         className="text-lg font-black uppercase"
@@ -161,8 +161,8 @@ export default function PhotographyPage() {
                   </motion.div>
                 ))}
               </div>
-            </CardBody>
-          </Card>
+            </Stack>
+          </Paper>
         </motion.section>
 
         {/* Photo Styles */}
@@ -173,16 +173,16 @@ export default function PhotographyPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border border-gray-200">
-            <CardHeader className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Fotostilar
-              </h2>
-              <p className="text-gray-600">
-                Olika stilar för spelarporträtt som passar olika sammanhang och användningsområden.
-              </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+          <Paper withBorder>
+            <Stack p="xl">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Fotostilar
+                </h2>
+                <p className="text-gray-600">
+                  Olika stilar för spelarporträtt som passar olika sammanhang och användningsområden.
+                </p>
+              </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {playerImages.map((image, index) => (
                   <motion.div 
@@ -193,18 +193,15 @@ export default function PhotographyPage() {
                     viewport={{ once: true }}
                     className="space-y-3"
                   >
-                    <Card className="shadow-md hover:shadow-lg transition-shadow">
-                      <CardBody className="p-0">
-                        <div className="aspect-[3/4] rounded-lg overflow-hidden">
-                          <Image
-                            src={image.src}
-                            alt={image.name}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                            radius="none"
-                          />
-                        </div>
-                      </CardBody>
-                    </Card>
+                    <Paper shadow="md" className="hover:shadow-lg transition-shadow">
+                      <div className="aspect-[3/4] rounded-lg overflow-hidden">
+                        <img
+                          src={image.src}
+                          alt={image.name}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    </Paper>
                     <div>
                       <h4 
                         className="text-sm font-black uppercase"
@@ -228,8 +225,8 @@ export default function PhotographyPage() {
                   </motion.div>
                 ))}
               </div>
-            </CardBody>
-          </Card>
+            </Stack>
+          </Paper>
         </motion.section>
 
         {/* Photo Guidelines */}
@@ -240,20 +237,20 @@ export default function PhotographyPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border border-gray-200">
-            <CardHeader className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Fotoriktlinjer
-              </h2>
-              <p className="text-gray-600">
-                Riktlinjer för hur spelarbilder ska tas, redigeras och användas i Habo IFs grafiska material.
-              </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+          <Paper withBorder>
+            <Stack p="xl">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Fotoriktlinjer
+                </h2>
+                <p className="text-gray-600">
+                  Riktlinjer för hur spelarbilder ska tas, redigeras och användas i Habo IFs grafiska material.
+                </p>
+              </div>
               <div className="space-y-8">
                 {/* Technical Requirements */}
-                <Card className="bg-gray-50 shadow-sm">
-                  <CardBody className="p-6">
+                <Paper className="bg-gray-50" shadow="sm">
+                  <div className="p-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-4">Tekniska krav</h4>
                     <div className="grid md:grid-cols-3 gap-6">
                       <div>
@@ -284,20 +281,19 @@ export default function PhotographyPage() {
                         </ul>
                       </div>
                     </div>
-                  </CardBody>
-                </Card>
+                  </div>
+                </Paper>
 
                 {/* Usage Examples */}
                 <div className="grid md:grid-cols-2 gap-8">
-                  <Card className="shadow-sm">
-                    <CardBody className="p-6">
+                  <Paper shadow="sm">
+                    <div className="p-6">
                       <h4 className="text-lg font-semibold text-gray-900 mb-4">I grid-system</h4>
                       <div className="aspect-[2/3] rounded-lg overflow-hidden relative shadow-md" style={{ background: brand.colors.gradientPrimary }}>
-                        <Image
+                        <img
                           src="/images/elements/Edward3.jpg"
                           alt="Edward i grid-system"
                           className="w-full h-full object-cover opacity-80"
-                          radius="none"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                         <div className="absolute top-4 right-4">
@@ -323,28 +319,27 @@ export default function PhotographyPage() {
                         </div>
                       </div>
                       <p className="text-xs text-gray-500 mt-3">Spelarbild i 2×4 hero-block med overlay-text</p>
-                    </CardBody>
-                  </Card>
+                    </div>
+                  </Paper>
 
-                  <Card className="shadow-sm">
-                    <CardBody className="p-6">
+                  <Paper shadow="sm">
+                    <div className="p-6">
                       <h4 className="text-lg font-semibold text-gray-900 mb-4">Utan overlay</h4>
                       <div className="aspect-[2/3] rounded-lg overflow-hidden border shadow-md">
-                        <Image
+                        <img
                           src="/images/elements/Robert1.jpg"
                           alt="Robert utan overlay"
                           className="w-full h-full object-cover"
-                          radius="none"
                         />
                       </div>
                       <p className="text-xs text-gray-500 mt-3">Ren spelarbild för vissa layouter</p>
-                    </CardBody>
-                  </Card>
+                    </div>
+                  </Paper>
                 </div>
 
                 {/* Style Guidelines */}
-                <Card className="bg-blue-50 border-blue-200 shadow-sm">
-                  <CardBody className="p-6">
+                <Paper className="bg-blue-50 border-blue-200" shadow="sm">
+                  <div className="p-6">
                     <h4 className="text-lg font-semibold text-gray-900 mb-4">Stilriktlinjer</h4>
                     <div className="grid md:grid-cols-2 gap-8">
                       <div>
@@ -360,7 +355,7 @@ export default function PhotographyPage() {
                             'Fokusera på spelarens karaktär'
                           ].map((item, index) => (
                             <div key={index} className="flex items-start gap-2">
-                              <Chip size="sm" color="success" variant="flat" className="mt-0.5">✓</Chip>
+                              <Badge color="green" variant="light" className="mt-0.5">✓</Badge>
                               <span className="text-sm text-gray-700">{item}</span>
                             </div>
                           ))}
@@ -379,18 +374,18 @@ export default function PhotographyPage() {
                             'Inkonsistent belysning mellan bilder'
                           ].map((item, index) => (
                             <div key={index} className="flex items-start gap-2">
-                              <Chip size="sm" color="danger" variant="flat" className="mt-0.5">✗</Chip>
+                              <Badge color="red" variant="light" className="mt-0.5">✗</Badge>
                               <span className="text-sm text-gray-700">{item}</span>
                             </div>
                           ))}
                         </div>
                       </div>
                     </div>
-                  </CardBody>
-                </Card>
+                  </div>
+                </Paper>
               </div>
-            </CardBody>
-          </Card>
+            </Stack>
+          </Paper>
         </motion.section>
       </main>
     </div>

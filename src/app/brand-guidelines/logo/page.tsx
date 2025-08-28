@@ -2,14 +2,15 @@
 
 import { useState } from 'react';
 import { 
-  Card, 
-  CardBody, 
-  CardHeader,
+  Paper, 
+  Stack,
   Button,
-  Link,
   Divider,
-  Chip
-} from '@heroui/react';
+  Badge,
+  Card
+} from '@mantine/core';
+import Link from 'next/link';
+import { ArrowLeft, Copy } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { HABO_IF_BRAND } from '@/apps/habo-if/config/brand';
 
@@ -30,7 +31,7 @@ export default function LogoGuidelinesPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center gap-6">
-              <Link href="/brand-guidelines">
+              <Link href="/brand-guidelines" style={{ textDecoration: 'none' }}>
                 <img 
                   src="/images/logos/habo-if-2025.png" 
                   alt="Habo IF"
@@ -49,14 +50,18 @@ export default function LogoGuidelinesPage() {
             </div>
             
             <Button 
-              as={Link}
+              component={Link}
               href="/brand-guidelines"
               size="sm"
-              className="text-white font-bold uppercase tracking-wider"
+              leftSection={<ArrowLeft size={16} />}
               style={{
                 backgroundColor: brand.colors.royalBlue,
+                color: 'white',
                 fontFamily: brand.typography.primary.fontFamily,
-                fontSize: '13px'
+                fontSize: '13px',
+                fontWeight: 'bold',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
               }}
             >
               TILLBAKA
@@ -90,16 +95,16 @@ export default function LogoGuidelinesPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border border-gray-200">
-            <CardHeader className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Logotypvarianter
-              </h2>
-              <p className="text-gray-600">
-                Två huvudvarianter av logotypen för olika bakgrunder och sammanhang.
-              </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+          <Paper withBorder>
+            <Stack p="xl">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Logotypvarianter
+                </h2>
+                <p className="text-gray-600">
+                  Två huvudvarianter av logotypen för olika bakgrunder och sammanhang.
+                </p>
+              </div>
               <div className="grid lg:grid-cols-2 gap-12">
                 {/* Primary Logo */}
                 <div>
@@ -125,11 +130,11 @@ export default function LogoGuidelinesPage() {
                     </p>
                     <div className="flex gap-3">
                       <Button 
-                        as="a"
+                        component="a"
                         href="/images/logos/habo-if-2025.png" 
                         download
                         size="sm"
-                        variant="bordered"
+                        variant="outline"
                         className="font-medium"
                         style={{ borderColor: brand.colors.royalBlue, color: brand.colors.royalBlue }}
                       >
@@ -166,11 +171,11 @@ export default function LogoGuidelinesPage() {
                     </p>
                     <div className="flex gap-3">
                       <Button 
-                        as="a"
+                        component="a"
                         href="/images/logos/habo-if-2025-white.png" 
                         download
                         size="sm"
-                        variant="bordered"
+                        variant="outline"
                         className="font-medium"
                         style={{ borderColor: brand.colors.royalBlue, color: brand.colors.royalBlue }}
                       >
@@ -180,8 +185,8 @@ export default function LogoGuidelinesPage() {
                   </div>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </Stack>
+          </Paper>
         </motion.section>
 
         {/* Usage Guidelines */}
@@ -192,16 +197,16 @@ export default function LogoGuidelinesPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border border-gray-200">
-            <CardHeader className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Användningsriktlinjer
-              </h2>
-              <p className="text-gray-600">
-                Riktlinjer för korrekt användning av Habo IF-logotypen i olika sammanhang och material.
-              </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+          <Paper withBorder>
+            <Stack p="xl">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Användningsriktlinjer
+                </h2>
+                <p className="text-gray-600">
+                  Riktlinjer för korrekt användning av Habo IF-logotypen i olika sammanhang och material.
+                </p>
+              </div>
               <div className="grid lg:grid-cols-2 gap-12">
                 <div>
                   <div className="flex items-center gap-2 mb-6">
@@ -209,41 +214,41 @@ export default function LogoGuidelinesPage() {
                     <h4 className="text-lg font-semibold text-green-700">Gör så här</h4>
                   </div>
                   <div className="space-y-4">
-                    <Card className="bg-green-50 border-green-200 shadow-sm">
-                      <CardBody className="p-4">
+                    <Paper className="bg-green-50 border-green-200" shadow="sm">
+                      <div className="p-4">
                         <div className="flex items-start gap-3">
-                          <Chip size="sm" color="success" className="mt-1">✓</Chip>
+                          <Badge color="green" className="mt-1">✓</Badge>
                           <div>
                             <h5 className="font-semibold text-green-800 mb-1">Behåll skyddszonen</h5>
                             <p className="text-sm text-green-700">Minst 20px fri yta runt logotypen på alla sidor</p>
                           </div>
                         </div>
-                      </CardBody>
-                    </Card>
+                      </div>
+                    </Paper>
                     
-                    <Card className="bg-green-50 border-green-200 shadow-sm">
-                      <CardBody className="p-4">
+                    <Paper className="bg-green-50 border-green-200" shadow="sm">
+                      <div className="p-4">
                         <div className="flex items-start gap-3">
-                          <Chip size="sm" color="success" className="mt-1">✓</Chip>
+                          <Badge color="green" className="mt-1">✓</Badge>
                           <div>
                             <h5 className="font-semibold text-green-800 mb-1">Rätt bakgrund</h5>
                             <p className="text-sm text-green-700">Färgad version på vita/beige, vit version på blå bakgrund</p>
                           </div>
                         </div>
-                      </CardBody>
-                    </Card>
+                      </div>
+                    </Paper>
 
-                    <Card className="bg-green-50 border-green-200 shadow-sm">
-                      <CardBody className="p-4">
+                    <Paper className="bg-green-50 border-green-200" shadow="sm">
+                      <div className="p-4">
                         <div className="flex items-start gap-3">
-                          <Chip size="sm" color="success" className="mt-1">✓</Chip>
+                          <Badge color="green" className="mt-1">✓</Badge>
                           <div>
                             <h5 className="font-semibold text-green-800 mb-1">God kontrast</h5>
                             <p className="text-sm text-green-700">Säkerställ att logotypen är tydligt synlig mot bakgrunden</p>
                           </div>
                         </div>
-                      </CardBody>
-                    </Card>
+                      </div>
+                    </Paper>
                   </div>
                 </div>
                 
@@ -253,46 +258,46 @@ export default function LogoGuidelinesPage() {
                     <h4 className="text-lg font-semibold text-red-700">Undvik detta</h4>
                   </div>
                   <div className="space-y-4">
-                    <Card className="bg-red-50 border-red-200 shadow-sm">
-                      <CardBody className="p-4">
+                    <Paper className="bg-red-50 border-red-200" shadow="sm">
+                      <div className="p-4">
                         <div className="flex items-start gap-3">
-                          <Chip size="sm" color="danger" className="mt-1">✗</Chip>
+                          <Badge color="red" className="mt-1">✗</Badge>
                           <div>
                             <h5 className="font-semibold text-red-800 mb-1">Ändra färger</h5>
                             <p className="text-sm text-red-700">Ändra aldrig logotypens färger eller proportioner</p>
                           </div>
                         </div>
-                      </CardBody>
-                    </Card>
+                      </div>
+                    </Paper>
                     
-                    <Card className="bg-red-50 border-red-200 shadow-sm">
-                      <CardBody className="p-4">
+                    <Paper className="bg-red-50 border-red-200" shadow="sm">
+                      <div className="p-4">
                         <div className="flex items-start gap-3">
-                          <Chip size="sm" color="danger" className="mt-1">✗</Chip>
+                          <Badge color="red" className="mt-1">✗</Badge>
                           <div>
                             <h5 className="font-semibold text-red-800 mb-1">För liten storlek</h5>
                             <p className="text-sm text-red-700">Använd aldrig mindre än 60×60px storlek</p>
                           </div>
                         </div>
-                      </CardBody>
-                    </Card>
+                      </div>
+                    </Paper>
 
-                    <Card className="bg-red-50 border-red-200 shadow-sm">
-                      <CardBody className="p-4">
+                    <Paper className="bg-red-50 border-red-200" shadow="sm">
+                      <div className="p-4">
                         <div className="flex items-start gap-3">
-                          <Chip size="sm" color="danger" className="mt-1">✗</Chip>
+                          <Badge color="red" className="mt-1">✗</Badge>
                           <div>
                             <h5 className="font-semibold text-red-800 mb-1">Förvräng logotypen</h5>
                             <p className="text-sm text-red-700">Rotera, sträck eller förvräng aldrig logotypen</p>
                           </div>
                         </div>
-                      </CardBody>
-                    </Card>
+                      </div>
+                    </Paper>
                   </div>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </Stack>
+          </Paper>
         </motion.section>
 
         {/* Technical Specifications */}
@@ -303,19 +308,19 @@ export default function LogoGuidelinesPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border border-gray-200">
-            <CardHeader className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Tekniska specifikationer
-              </h2>
-              <p className="text-gray-600">
-                Detaljerade krav för logotypens tekniska implementation och användning.
-              </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+          <Paper withBorder>
+            <Stack p="xl">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Tekniska specifikationer
+                </h2>
+                <p className="text-gray-600">
+                  Detaljerade krav för logotypens tekniska implementation och användning.
+                </p>
+              </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Card className="shadow-sm">
-                  <CardBody className="p-6 text-center">
+                <Paper shadow="sm">
+                  <div className="p-6 text-center">
                     <div className="w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl font-bold mb-4 mx-auto"
                          style={{ backgroundColor: brand.colors.royalBlue }}>
                       📏
@@ -324,17 +329,18 @@ export default function LogoGuidelinesPage() {
                     <p className="text-sm text-gray-600 mb-4">60×60px för digital användning</p>
                     <Button
                       size="sm"
-                      variant="flat"
+                      variant="light"
+                      leftSection={<Copy size={12} />}
                       onClick={() => handleCopy('60×60px')}
                       className="text-xs font-mono"
                     >
-                      {copiedText === '60×60px' ? 'Kopierad!' : '60×60px 📋'}
+                      {copiedText === '60×60px' ? 'Kopierad!' : '60×60px'}
                     </Button>
-                  </CardBody>
-                </Card>
+                  </div>
+                </Paper>
                 
-                <Card className="shadow-sm">
-                  <CardBody className="p-6 text-center">
+                <Paper shadow="sm">
+                  <div className="p-6 text-center">
                     <div className="w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl font-bold mb-4 mx-auto"
                          style={{ backgroundColor: brand.colors.heritageGold }}>
                       🎯
@@ -343,17 +349,18 @@ export default function LogoGuidelinesPage() {
                     <p className="text-sm text-gray-600 mb-4">Minst 20px fri yta runt logotypen</p>
                     <Button
                       size="sm"
-                      variant="flat"
+                      variant="light"
+                      leftSection={<Copy size={12} />}
                       onClick={() => handleCopy('20px')}
                       className="text-xs font-mono"
                     >
-                      {copiedText === '20px' ? 'Kopierad!' : '20px 📋'}
+                      {copiedText === '20px' ? 'Kopierad!' : '20px'}
                     </Button>
-                  </CardBody>
-                </Card>
+                  </div>
+                </Paper>
 
-                <Card className="shadow-sm">
-                  <CardBody className="p-6 text-center">
+                <Paper shadow="sm">
+                  <div className="p-6 text-center">
                     <div className="w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl font-bold mb-4 mx-auto"
                          style={{ backgroundColor: brand.colors.royalBlue }}>
                       📄
@@ -361,11 +368,11 @@ export default function LogoGuidelinesPage() {
                     <h4 className="font-semibold mb-2">Format</h4>
                     <p className="text-sm text-gray-600 mb-4">PNG med transparens, SVG för skalbarhet</p>
                     <div className="text-xs text-gray-500 font-mono">PNG/SVG</div>
-                  </CardBody>
-                </Card>
+                  </div>
+                </Paper>
 
-                <Card className="shadow-sm">
-                  <CardBody className="p-6 text-center">
+                <Paper shadow="sm">
+                  <div className="p-6 text-center">
                     <div className="w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl font-bold mb-4 mx-auto"
                          style={{ backgroundColor: brand.colors.heritageGold }}>
                       🖨️
@@ -374,17 +381,18 @@ export default function LogoGuidelinesPage() {
                     <p className="text-sm text-gray-600 mb-4">300 DPI för tryck material</p>
                     <Button
                       size="sm"
-                      variant="flat"
+                      variant="light"
+                      leftSection={<Copy size={12} />}
                       onClick={() => handleCopy('300 DPI')}
                       className="text-xs font-mono"
                     >
-                      {copiedText === '300 DPI' ? 'Kopierad!' : '300 DPI 📋'}
+                      {copiedText === '300 DPI' ? 'Kopierad!' : '300 DPI'}
                     </Button>
-                  </CardBody>
-                </Card>
+                  </div>
+                </Paper>
               </div>
-            </CardBody>
-          </Card>
+            </Stack>
+          </Paper>
         </motion.section>
 
         {/* Grid System Usage */}
@@ -395,16 +403,16 @@ export default function LogoGuidelinesPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border border-gray-200">
-            <CardHeader className="p-8">
+          <Paper className="border border-gray-200">
+            <div className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Logotyp i Grid-systemet
               </h2>
               <p className="text-gray-600">
                 Hur logotypen integreras och används inom Habo IFs grid-baserade designsystem.
               </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+            </div>
+            <div className="p-8 pt-0">
               <div className="grid md:grid-cols-3 gap-8">
                 <div>
                   <h4 className="font-semibold mb-4">Placering</h4>
@@ -412,13 +420,13 @@ export default function LogoGuidelinesPage() {
                     Logotypen placeras alltid i beige block, vanligtvis i övre höger 
                     eller nedre vänster del av blocket.
                   </p>
-                  <Card className="bg-yellow-50 border-yellow-200">
-                    <CardBody className="p-3">
+                  <Paper className="bg-yellow-50 border-yellow-200">
+                    <div className="p-3">
                       <p className="text-yellow-800 text-xs font-medium">
                         💡 Tips: Storlek ska vara 40% av blockets minsta dimension
                       </p>
-                    </CardBody>
-                  </Card>
+                    </div>
+                  </Paper>
                 </div>
                 
                 <div>
@@ -446,8 +454,8 @@ export default function LogoGuidelinesPage() {
                   </div>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </div>
+          </Paper>
         </motion.section>
 
         {/* Downloads */}
@@ -458,8 +466,8 @@ export default function LogoGuidelinesPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border-2 shadow-lg" style={{ borderColor: brand.colors.royalBlue }}>
-            <CardHeader className="p-12 text-center">
+          <Paper className="border-2 shadow-lg" style={{ borderColor: brand.colors.royalBlue }}>
+            <div className="p-12 text-center">
               <h3 
                 className="text-2xl font-semibold mb-4" 
                 style={{ 
@@ -473,39 +481,39 @@ export default function LogoGuidelinesPage() {
               <p className="text-gray-600 max-w-2xl mx-auto" style={{ fontFamily: brand.typography.secondary.fontFamily }}>
                 Alla logotypfiler i högupplöst format för digital och tryck användning.
               </p>
-            </CardHeader>
-            <CardBody className="p-12 pt-0">
+            </div>
+            <div className="p-12 pt-0">
               <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
                 <Button 
-                  as="a"
+                  component="a"
                   href="/images/logos/habo-if-2025.png" 
                   download
-                  variant="bordered"
+                  variant="default"
                   className="font-medium"
                   style={{ borderColor: brand.colors.royalBlue, color: brand.colors.royalBlue }}
                 >
                   📁 PNG Färgad
                 </Button>
                 <Button 
-                  as="a"
+                  component="a"
                   href="/images/logos/habo-if-2025-white.png" 
                   download
-                  variant="bordered"
+                  variant="outline"
                   className="font-medium"
                   style={{ borderColor: brand.colors.royalBlue, color: brand.colors.royalBlue }}
                 >
                   📁 PNG Vit
                 </Button>
                 <Button 
-                  variant="flat"
+                  variant="light"
                   disabled
                   className="font-medium text-gray-500"
                 >
                   🎨 SVG (Kommer)
                 </Button>
               </div>
-            </CardBody>
-          </Card>
+            </div>
+          </Paper>
         </motion.section>
       </main>
     </div>

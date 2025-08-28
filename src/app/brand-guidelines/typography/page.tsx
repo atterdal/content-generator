@@ -1,14 +1,14 @@
 'use client';
 
 import { 
-  Card, 
-  CardBody, 
-  CardHeader,
+  Paper, 
+  Stack,
   Button,
-  Link,
   Divider,
-  Chip
-} from '@heroui/react';
+  Badge
+} from '@mantine/core';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { HABO_IF_BRAND } from '@/apps/habo-if/config/brand';
 
@@ -22,7 +22,7 @@ export default function TypographyPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center gap-6">
-              <Link href="/brand-guidelines">
+              <Link href="/brand-guidelines" style={{ textDecoration: 'none' }}>
                 <img 
                   src="/images/logos/habo-if-2025.png" 
                   alt="Habo IF"
@@ -41,14 +41,18 @@ export default function TypographyPage() {
             </div>
             
             <Button 
-              as={Link}
+              component={Link}
               href="/brand-guidelines"
               size="sm"
-              className="text-white font-bold uppercase tracking-wider"
+              leftSection={<ArrowLeft size={16} />}
               style={{
                 backgroundColor: brand.colors.royalBlue,
+                color: 'white',
                 fontFamily: brand.typography.primary.fontFamily,
-                fontSize: '13px'
+                fontSize: '13px',
+                fontWeight: 'bold',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
               }}
             >
               TILLBAKA
@@ -82,28 +86,28 @@ export default function TypographyPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border border-gray-200">
-            <CardBody className="p-0">
-              <div className="bg-gradient-to-br rounded-lg p-12 text-center"
-                   style={{ background: brand.colors.gradientPrimary }}>
-                <p 
-                  className="text-6xl font-black uppercase leading-tight mb-4"
-                  style={{ 
-                    color: brand.colors.heritageGold,
-                    fontFamily: brand.typography.primary.fontFamily
-                  }}
-                >
-                  HABO IF
-                </p>
-                <p 
-                  className="text-xl text-white"
-                  style={{ fontFamily: brand.typography.secondary.fontFamily }}
-                >
-                  Vi brinner blått
-                </p>
-              </div>
-            </CardBody>
-          </Card>
+          <Paper withBorder>
+            <div 
+              className="rounded-lg p-12 text-center"
+              style={{ background: brand.colors.gradientPrimary }}
+            >
+              <p 
+                className="text-6xl font-black uppercase leading-tight mb-4"
+                style={{ 
+                  color: brand.colors.heritageGold,
+                  fontFamily: brand.typography.primary.fontFamily
+                }}
+              >
+                HABO IF
+              </p>
+              <p 
+                className="text-xl text-white"
+                style={{ fontFamily: brand.typography.secondary.fontFamily }}
+              >
+                Vi brinner blått
+              </p>
+            </div>
+          </Paper>
         </motion.section>
 
         {/* Primary Typeface */}
@@ -114,16 +118,16 @@ export default function TypographyPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border border-gray-200">
-            <CardHeader className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Primärt typsnitt
-              </h2>
-              <p className="text-gray-600">
-                {brand.typography.primary.fontFamily.split(',')[0].replace(/"/g, '')} är vårt primära typsnitt för alla rubriker och uppmärksammande element.
-              </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+          <Paper withBorder>
+            <Stack p="xl">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Primärt typsnitt
+                </h2>
+                <p className="text-gray-600">
+                  {brand.typography.primary.fontFamily.split(',')[0].replace(/"/g, '')} är vårt primära typsnitt för alla rubriker och uppmärksammande element.
+                </p>
+              </div>
               <div className="space-y-8">
                 <div>
                   <p 
@@ -164,8 +168,8 @@ export default function TypographyPage() {
                   </div>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </Stack>
+          </Paper>
         </motion.section>
 
         {/* Secondary Typeface */}
@@ -176,16 +180,16 @@ export default function TypographyPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border border-gray-200">
-            <CardHeader className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Sekundärt typsnitt
-              </h2>
-              <p className="text-gray-600">
-                {brand.typography.secondary.fontFamily.split(',')[0].replace(/"/g, '')} för brödtext och längre textstycken. Ger elegans och god läsbarhet.
-              </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+          <Paper withBorder>
+            <Stack p="xl">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Sekundärt typsnitt
+                </h2>
+                <p className="text-gray-600">
+                  {brand.typography.secondary.fontFamily.split(',')[0].replace(/"/g, '')} för brödtext och längre textstycken. Ger elegans och god läsbarhet.
+                </p>
+              </div>
               <div className="space-y-8">
                 <div>
                   <p 
@@ -227,8 +231,8 @@ export default function TypographyPage() {
                   </div>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </Stack>
+          </Paper>
         </motion.section>
 
         {/* Text Hierarchy */}
@@ -239,16 +243,16 @@ export default function TypographyPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border border-gray-200">
-            <CardHeader className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Texthierarki
-              </h2>
-              <p className="text-gray-600">
-                Vår texthierarki säkerställer tydlighet och god läsbarhet i alla sammanhang.
-              </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+          <Paper withBorder>
+            <Stack p="xl">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Texthierarki
+                </h2>
+                <p className="text-gray-600">
+                  Vår texthierarki säkerställer tydlighet och god läsbarhet i alla sammanhang.
+                </p>
+              </div>
               <div className="bg-gray-50 rounded-lg p-8 space-y-6">
                 <div className="p-4 bg-white rounded border-l-4 shadow-sm" style={{ borderColor: brand.colors.heritageGold }}>
                   <p 
@@ -316,8 +320,8 @@ export default function TypographyPage() {
                   <p className="text-sm text-gray-500">Standard body text</p>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </Stack>
+          </Paper>
         </motion.section>
 
         {/* Usage Examples */}
@@ -328,20 +332,20 @@ export default function TypographyPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="border border-gray-200">
-            <CardHeader className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Användningsexempel
-              </h2>
-              <p className="text-gray-600">
-                Exempel på hur typografin används i praktiken för olika sammanhang.
-              </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
+          <Paper withBorder>
+            <Stack p="xl">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Användningsexempel
+                </h2>
+                <p className="text-gray-600">
+                  Exempel på hur typografin används i praktiken för olika sammanhang.
+                </p>
+              </div>
               <div className="space-y-8">
                 {/* Good Example */}
                 <div className="rounded-lg p-8 shadow-lg" style={{ background: brand.colors.gradientPrimary }}>
-                  <Chip size="sm" color="success" className="mb-4">Korrekt</Chip>
+                  <Badge color="green" className="mb-4">Korrekt</Badge>
                   <h4 
                     className="text-3xl font-black uppercase mb-3"
                     style={{ 
@@ -371,7 +375,7 @@ export default function TypographyPage() {
 
                 {/* Bad Example */}
                 <div className="bg-gray-100 rounded-lg p-8 opacity-60 shadow-lg border">
-                  <Chip size="sm" color="danger" className="mb-4">Undvik</Chip>
+                  <Badge color="red" className="mb-4">Undvik</Badge>
                   <h4 
                     className="text-lg mb-3 text-gray-600"
                     style={{ fontFamily: brand.typography.secondary.fontFamily }}
@@ -389,8 +393,8 @@ export default function TypographyPage() {
                   </p>
                 </div>
               </div>
-            </CardBody>
-          </Card>
+            </Stack>
+          </Paper>
         </motion.section>
       </main>
     </div>
