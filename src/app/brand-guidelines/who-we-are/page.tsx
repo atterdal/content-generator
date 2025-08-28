@@ -1,167 +1,154 @@
 'use client';
 
-import { 
-  Card, 
-  CardBody, 
-  CardHeader,
+import {
+  Container,
+  Title,
+  Text,
+  Paper,
+  Stack,
+  Box,
+  SimpleGrid,
+  Badge,
+  BackgroundImage,
+  Group,
   Button,
-  Link
-} from '@heroui/react';
+  Anchor,
+  List
+} from '@mantine/core';
+import { Users, Target, Heart, Trophy, TrendingUp, Handshake } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { HABO_IF_BRAND } from '@/apps/habo-if/config/brand';
+
+const VALUES = [
+  {
+    icon: Heart,
+    title: 'Gemenskap',
+    description: 'Vi bygger en stark gemenskap där alla känner sig välkomna och värdefulla',
+    items: ['Inkludering och mångfald', 'Stöd för varandra på och utanför plan', 'Familj och vänskap genom fotboll']
+  },
+  {
+    icon: Trophy,
+    title: 'Framgång',
+    description: 'Vi strävar efter excellens både på och utanför planen',
+    items: ['Individuell utveckling för varje spelare', 'Utbildning av ledare och tränare', 'Ständig förbättring av verksamheten']
+  },
+  {
+    icon: Target,
+    title: 'Engagemang',
+    description: 'Vi är dedikerade till vår sport och vårt lokalsamhälle',
+    items: ['Positiv atmosfär på träningar', 'Firande av framsteg, stora som små', 'Lek och kreativitet i fotbollsspelet']
+  },
+  {
+    icon: Users,
+    title: 'Respekt',
+    description: 'Vi respekterar varandra, motståndare och spelet vi älskar',
+    items: ['Fair play på och utanför plan', 'Respekt för domare och motståndare', 'Värderingar som går före resultat']
+  }
+];
 
 export default function WhoWeArePage() {
   const brand = HABO_IF_BRAND;
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation Header */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between py-4">
-            <div className="flex items-center gap-6">
-              <Link href="/brand-guidelines">
-                <img 
-                  src="/images/logos/habo-if-2025.png" 
-                  alt="Habo IF"
-                  className="h-8 object-contain"
-                />
-              </Link>
-              <span 
-                className="text-base font-black uppercase tracking-wider"
-                style={{ 
-                  color: brand.colors.royalBlue,
-                  fontFamily: brand.typography.primary.fontFamily
-                }}
-              >
-                VILKA VI ÄR
-              </span>
-            </div>
-            
-            <Button 
-              as={Link}
-              href="/brand-guidelines"
-              size="sm"
-              className="text-white font-bold uppercase tracking-wider"
-              style={{
-                backgroundColor: brand.colors.royalBlue,
+    <>
+      {/* Hero Section */}
+      <BackgroundImage
+        src="/images/elements/habo-if-team-wide.jpg"
+        h={400}
+        style={{ position: 'relative' }}
+      >
+        <Box 
+          style={{ 
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'linear-gradient(135deg, rgba(6, 41, 160, 0.8) 0%, rgba(26, 98, 201, 0.6) 100%)'
+          }}
+        />
+        <Container size="lg" h="100%" style={{ position: 'relative', zIndex: 1 }}>
+          <Stack justify="center" h="100%" ta="center" c="white">
+            <Badge size="lg" variant="light" color="gold.5" mb="md">
+              Om Oss
+            </Badge>
+            <Title 
+              order={1} 
+              size={48}
+              fw={900}
+              tt="uppercase"
+              style={{ 
                 fontFamily: brand.typography.primary.fontFamily,
-                fontSize: '13px'
+                letterSpacing: '0.1em'
               }}
             >
-              TILLBAKA
-            </Button>
-          </div>
-        </div>
-      </header>
+              Vilka Vi Är
+            </Title>
+            <Text size="xl" maw={600} mx="auto" opacity={0.9}>
+              Habo IF - mer än bara en fotbollsklubb
+            </Text>
+          </Stack>
+        </Container>
+      </BackgroundImage>
 
-      {/* Page Content */}
-      <main className="max-w-7xl mx-auto px-6 py-12">
-        {/* Page Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Vilka vi är
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl">
-            Habo IF är mer än en fotbollsklubb. Vi är en gemenskap som brinner blått och bygger framtidens idrottare med glädje, utveckling och sammanhållning.
-          </p>
-        </motion.div>
-
-        {/* Our History */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <Card className="border border-gray-200">
-            <CardHeader className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Vår historia
-              </h2>
-              <p className="text-gray-600">
-                Habo IF grundades 1926 av idrottsentusiaster som ville skapa något större än sig själva.
-              </p>
-            </CardHeader>
-            <CardBody className="p-8 pt-0">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                >
-                  <Card 
-                    className="text-center text-white shadow-lg"
-                    style={{ background: brand.colors.gradient50deg }}
-                  >
-                    <CardBody className="p-12">
-                      <p 
-                        className="text-8xl font-black uppercase mb-4"
-                        style={{ 
-                          color: brand.colors.heritageGold,
-                          fontFamily: brand.typography.primary.fontFamily
-                        }}
-                      >
-                        1926
-                      </p>
-                      <p 
-                        className="text-xl italic"
-                        style={{ 
-                          fontFamily: brand.typography.secondary.fontFamily,
-                          fontStyle: 'italic'
-                        }}
-                      >
-                        Grundades i Habo
-                      </p>
-                    </CardBody>
-                  </Card>
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  viewport={{ once: true }}
-                  className="space-y-6"
-                >
-                  <p 
-                    className="text-lg leading-relaxed"
-                    style={{ fontFamily: brand.typography.secondary.fontFamily }}
-                  >
-                    Habo Idrottsförening grundades 1926 av en grupp idrottsentusiaster som ville 
-                    skapa något större än sig själva. Från de första matcherna på enkla grusplaner 
-                    till dagens moderna Hajmyren har vi alltid haft samma vision.
-                  </p>
-                  <p 
-                    className="text-lg leading-relaxed"
-                    style={{ fontFamily: brand.typography.secondary.fontFamily }}
-                  >
-                    Under snart 100 år har vi varit en central del av Habo kommun, inte bara som 
-                    fotbollsklubb utan som en mötesplats där generationer har vuxit upp tillsammans. 
-                    Vi har fostrat spelare, ledare och supporters som bär våra värderingar vidare.
-                  </p>
-                  <p 
-                    className="text-lg italic leading-relaxed text-gray-600"
+      {/* Main Content */}
+      <Container size="lg" py="xl">
+        <Stack spacing="xl">
+          {/* About Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Paper p="xl">
+              <Title order={2} mb="lg" c="blue.7">Vår Historia</Title>
+              <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl" align="center">
+                <Box>
+                  <Paper 
+                    p="xl" 
+                    ta="center" 
+                    c="white"
                     style={{ 
-                      fontFamily: brand.typography.secondary.fontFamily,
-                      fontStyle: 'italic'
+                      background: 'linear-gradient(135deg, #0629A0 0%, #1a62c9 100%)'
                     }}
                   >
-                    Vår historia är inte bara skriven i resultat och tabellplaceringar, 
-                    utan i alla de människor som valt att brinna blått tillsammans med oss.
-                  </p>
-                </motion.div>
-              </div>
-            </CardBody>
-          </Card>
-        </motion.section>
+                    <Text 
+                      size={80} 
+                      fw={900} 
+                      c="gold.5"
+                      style={{ 
+                        fontFamily: brand.typography.primary.fontFamily,
+                        lineHeight: 1
+                      }}
+                    >
+                      1932
+                    </Text>
+                    <Text 
+                      size="lg" 
+                      style={{ 
+                        fontFamily: brand.typography.secondary.fontFamily,
+                        fontStyle: 'italic'
+                      }}
+                    >
+                      Grundades i Habo
+                    </Text>
+                  </Paper>
+                </Box>
+                <Stack>
+                  <Text size="lg" mb="md">
+                    Habo IF grundades 1932 och har sedan dess varit en central del av Habo kommun. 
+                    Vi är en allaktivitetsförening som erbjuder fotboll för alla åldrar, från våra 
+                    yngsta talanger till våra erfarna veteraner.
+                  </Text>
+                  <Text size="md" c="dimmed">
+                    Genom åren har vi vuxit från en liten lokal klubb till en respekterad 
+                    fotbollsorganisation som är stolt över sina traditioner samtidigt som vi 
+                    blickar framåt mot framtida framgångar.
+                  </Text>
+                </Stack>
+              </SimpleGrid>
+            </Paper>
+          </motion.div>
 
         {/* Core Values */}
         <motion.section

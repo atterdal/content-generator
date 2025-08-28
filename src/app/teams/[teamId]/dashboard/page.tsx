@@ -2,19 +2,41 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { 
-  Card, 
-  CardBody, 
-  CardHeader,
+import {
+  Container,
+  Paper,
   Button,
-  Chip,
+  Badge,
   Avatar,
   Tabs,
-  Tab,
-  Link
-} from '@heroui/react';
+  Title,
+  Text,
+  Group,
+  Stack,
+  SimpleGrid,
+  Box,
+  Anchor,
+  Flex
+} from '@mantine/core';
+import { notifications } from '@mantine/notifications';
+import { 
+  Calendar,
+  Trophy,
+  Dumbbell,
+  Star,
+  CalendarDays,
+  Newspaper,
+  Settings,
+  FileText,
+  LogOut,
+  Users,
+  Target,
+  Infinity,
+  Clock
+} from 'lucide-react';
 import { motion } from 'framer-motion';
 import { HABO_IF_BRAND } from '@/apps/habo-if/config/brand';
+import { POST_TYPES, getPostTypeById } from '@/lib/post-types';
 
 // Mock player data - replace with database later
 const TEAM_PLAYERS = {
@@ -56,16 +78,27 @@ const TEAM_PLAYERS = {
   ]
 };
 
-const POST_TEMPLATES = [
-  { id: 'matchday', name: 'Matchdag', icon: '⚽', description: 'Annonsera kommande match' },
-  { id: 'result', name: 'Resultat', icon: '🏆', description: 'Dela matchresultat' },
-  { id: 'training', name: 'Träning', icon: '💪', description: 'Information om träning' },
-  { id: 'player', name: 'Spelarfokus', icon: '⭐', description: 'Lyfta fram en spelare' },
-  { id: 'event', name: 'Event', icon: '📅', description: 'Annonsera laghändelser' },
-  { id: 'news', name: 'Nyheter', icon: '📰', description: 'Dela lagnyheter' }
-];
+// Icon mapping for post types
+const ICON_MAP: { [key: string]: any } = {
+  'Calendar': Calendar,
+  'Users': Users,
+  'Clock': Clock,
+  'Trophy': Trophy,
+  'Target': Target,
+  'Star': Star
+};
 
-export default function TeamDashboardPage() {
+// Convert POST_TYPES to dashboard template format
+const POST_TEMPLATES = POST_TYPES.map(postType => ({
+  id: postType.id,
+  name: postType.name,
+  icon: ICON_MAP[postType.icon] || Calendar,
+  description: postType.description,
+  bulkCapable: postType.bulkCapable,
+  category: postType.category
+}));
+
+export default function TeamDashboardMantinePage() {
   const brand = HABO_IF_BRAND;
   const router = useRouter();
   const params = useParams();
@@ -93,6 +126,11 @@ export default function TeamDashboardPage() {
 
   const handleLogout = () => {
     sessionStorage.removeItem('teamAuth');
+    notifications.show({
+      title: 'Utloggad',
+      message: 'Du har loggats ut',
+      color: 'blue',
+    });
     router.push('/teams/login');
   };
 
@@ -104,137 +142,162 @@ export default function TeamDashboardPage() {
 
   if (!teamData) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-pulse text-gray-500">Laddar...</div>
-      </div>
+      <Container size="lg" py="xl">
+        <Text ta="center" c="dimmed">Laddar...</Text>
+      </Container>
     );
   }
 
   const players = TEAM_PLAYERS[teamId as keyof typeof TEAM_PLAYERS] || [];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between py-4">
-            <div className="flex items-center gap-6">
-              <img 
-                src="/images/logos/habo-if-2025.png" 
-                alt="Habo IF"
-                className="h-8 object-contain"
-              />
-              <div>
-                <h1 
-                  className="text-xl font-black uppercase tracking-wider"
-                  style={{ 
-                    color: brand.colors.royalBlue,
-                    fontFamily: brand.typography.primary.fontFamily
-                  }}
-                >
-                  {teamData.teamName} DASHBOARD
-                </h1>
-                <p className="text-xs text-gray-600">Skapa grafik för sociala medier</p>
-              </div>
-            </div>
+    <Box bg="gray.0" mih="100vh">
+      {/* Team Header */}
+      <Container size="lg" py="md">
+        <Paper p="lg" mb="xl">
+          <Flex justify="space-between" align="center">
+            <Box>
+              <Title 
+                order={2} 
+                tt="uppercase" 
+                c="blue.5"
+                style={{ 
+                  fontFamily: brand.typography.primary.fontFamily,
+                  letterSpacing: '0.05em'
+                }}
+              >
+                {teamData.teamName} DASHBOARD
+              </Title>
+              <Text size="sm" c="dimmed">Skapa grafik för sociala medier</Text>
+            </Box>
             
-            <div className="flex items-center gap-4">
+            <Group>
               <Button
-                as={Link}
+                component="a"
                 href={`/teams/${teamId}/manage`}
-                className="font-bold text-white"
-                style={{ backgroundColor: brand.colors.royalBlue }}
+                color="blue.5"
+                leftSection={<Settings size={16} />}
                 size="sm"
               >
                 Hantera Lag
               </Button>
               <Button
-                as={Link}
-                href="/brand-guidelines"
-                variant="flat"
+                component="a"
+                href={`/teams/${teamId}/bulk-generate`}
+                variant="light"
+                leftSection={<Target size={16} />}
                 size="sm"
               >
-                Brand Guidelines
+                Batch-Generering
               </Button>
               <Button
                 onClick={handleLogout}
-                variant="bordered"
+                variant="outline"
+                color="red"
+                leftSection={<LogOut size={16} />}
                 size="sm"
-                className="text-red-600 border-red-600"
               >
                 Logga ut
               </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+            </Group>
+          </Flex>
+        </Paper>
+      </Container>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <Container size="lg" pb="xl">
         {/* Welcome Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-8"
         >
-          <Card className="bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200">
-            <CardBody className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Välkommen till {teamData.teamName} Dashboard! 👋
-              </h2>
-              <p className="text-gray-700">
-                Här kan du snabbt skapa professionell grafik för sociala medier. 
-                Välj en mall nedan eller lyft fram en specifik spelare.
-              </p>
-            </CardBody>
-          </Card>
+          <Paper p="xl" mb="xl" bg="blue.0" style={{ border: '1px solid var(--mantine-color-blue-2)' }}>
+            <Title order={3} mb="sm">
+              Välkommen till {teamData.teamName} Dashboard!
+            </Title>
+            <Text c="dimmed">
+              Här kan du snabbt skapa professionell grafik för sociala medier. 
+              Välj en mall nedan eller lyft fram en specifik spelare.
+            </Text>
+          </Paper>
         </motion.div>
 
         {/* Tabs */}
-        <Tabs 
-          selectedKey={selectedTab}
-          onSelectionChange={(key) => setSelectedTab(key as string)}
-          className="mb-8"
-        >
-          <Tab key="posts" title="Skapa Inlägg">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-              {POST_TEMPLATES.map((template, index) => (
-                <motion.div
-                  key={template.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
-                >
-                  <Card 
-                    isHoverable
-                    className="border border-gray-200 hover:shadow-lg transition-all"
-                  >
-                    <CardBody className="p-6">
-                      <div className="text-4xl mb-4">{template.icon}</div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-2">
-                        {template.name}
-                      </h3>
-                      <p className="text-sm text-gray-600 mb-4">
-                        {template.description}
-                      </p>
-                      <Button
-                        size="sm"
-                        className="w-full font-bold text-white"
-                        style={{ backgroundColor: brand.colors.royalBlue }}
-                        onClick={() => handleCreatePost(template.id)}
-                      >
-                        Skapa {template.name}
-                      </Button>
-                    </CardBody>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </Tab>
+        <Tabs value={selectedTab} onChange={setSelectedTab} mb="xl">
+          <Tabs.List>
+            <Tabs.Tab value="posts">Skapa Inlägg</Tabs.Tab>
+            <Tabs.Tab value="players" rightSection={<Badge size="sm">{players.length}</Badge>}>
+              Spelare
+            </Tabs.Tab>
+            <Tabs.Tab value="recent">Senaste</Tabs.Tab>
+          </Tabs.List>
 
-          <Tab key="players" title={`Spelare (${players.length})`}>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+          <Tabs.Panel value="posts" pt="md">
+            <SimpleGrid cols={{ base: 1, md: 2, lg: 3 }} spacing="md">
+              {POST_TEMPLATES.map((template, index) => {
+                const IconComponent = template.icon;
+                return (
+                  <motion.div
+                    key={template.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                  >
+                    <Paper 
+                      p="md"
+                      style={{ 
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        ':hover': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: 'var(--mantine-shadow-md)'
+                        }
+                      }}
+                    >
+                      <Group mb="md" justify="space-between">
+                        <IconComponent size={32} color="var(--mantine-color-blue-5)" />
+                        {template.bulkCapable && (
+                          <Badge size="sm" color="green" variant="light">
+                            Bulk
+                          </Badge>
+                        )}
+                      </Group>
+                      <Title order={4} mb="xs">
+                        {template.name}
+                      </Title>
+                      <Text size="sm" c="dimmed" mb="md">
+                        {template.description}
+                      </Text>
+                      <Stack gap="xs">
+                        <Button
+                          fullWidth
+                          color="blue.5"
+                          onClick={() => handleCreatePost(template.id)}
+                        >
+                          Skapa {template.name}
+                        </Button>
+                        {template.bulkCapable && (
+                          <Button
+                            fullWidth
+                            variant="light"
+                            color="green"
+                            size="xs"
+                            onClick={() => router.push(`/teams/${teamId}/bulk-generate?type=${template.id}`)}
+                          >
+                            Bulk-generera
+                          </Button>
+                        )}
+                      </Stack>
+                    </Paper>
+                  </motion.div>
+                );
+              })}
+            </SimpleGrid>
+          </Tabs.Panel>
+
+          <Tabs.Panel value="players" pt="md">
+            <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="md">
               {players.map((player, index) => (
                 <motion.div
                   key={player.id}
@@ -242,68 +305,63 @@ export default function TeamDashboardPage() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
-                  <Card className="border border-gray-200 hover:shadow-lg transition-all">
-                    <CardBody className="p-6">
-                      <div className="flex items-start gap-4 mb-4">
-                        <Avatar
-                          src={player.image}
-                          size="lg"
-                          className="w-20 h-20"
-                        />
-                        <div className="flex-1">
-                          <h3 className="font-bold text-gray-900">
-                            {player.name}
-                          </h3>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Chip size="sm" variant="flat" color="primary">
-                              #{player.number}
-                            </Chip>
-                            <Chip size="sm" variant="flat">
-                              {player.position}
-                            </Chip>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          variant="solid"
-                          className="flex-1 text-white"
-                          style={{ backgroundColor: brand.colors.royalBlue }}
-                          onClick={() => handleCreatePost('player', player.id)}
-                        >
-                          Spelarfokus
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="bordered"
-                          className="flex-1"
-                          onClick={() => handleCreatePost('matchday', player.id)}
-                        >
-                          Matchdag
-                        </Button>
-                      </div>
-                    </CardBody>
-                  </Card>
+                  <Paper p="md">
+                    <Group mb="md">
+                      <Avatar
+                        src={player.image}
+                        size="lg"
+                        radius="md"
+                      />
+                      <Box style={{ flex: 1 }}>
+                        <Text fw={600}>
+                          {player.name}
+                        </Text>
+                        <Group gap="xs" mt={4}>
+                          <Badge size="sm" variant="light">
+                            #{player.number}
+                          </Badge>
+                          <Badge size="sm" variant="outline">
+                            {player.position}
+                          </Badge>
+                        </Group>
+                      </Box>
+                    </Group>
+                    
+                    <Group>
+                      <Button
+                        size="sm"
+                        color="blue.5"
+                        style={{ flex: 1 }}
+                        onClick={() => handleCreatePost('player', player.id)}
+                      >
+                        Spelarfokus
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="light"
+                        style={{ flex: 1 }}
+                        onClick={() => handleCreatePost('matchday', player.id)}
+                      >
+                        Matchdag
+                      </Button>
+                    </Group>
+                  </Paper>
                 </motion.div>
               ))}
-            </div>
-          </Tab>
+            </SimpleGrid>
+          </Tabs.Panel>
 
-          <Tab key="recent" title="Senaste">
-            <Card className="mt-6">
-              <CardBody className="p-12 text-center">
-                <div className="text-6xl mb-4 text-gray-300">📋</div>
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">
-                  Inga tidigare inlägg
-                </h3>
-                <p className="text-gray-500">
-                  Dina skapade inlägg kommer visas här
-                </p>
-              </CardBody>
-            </Card>
-          </Tab>
+          <Tabs.Panel value="recent" pt="md">
+            <Paper p="xl" ta="center">
+              <FileText size={64} color="var(--mantine-color-gray-4)" style={{ margin: '0 auto 1rem' }} />
+              <Title order={4} c="dimmed" mb="sm">
+                Inga tidigare inlägg
+              </Title>
+              <Text c="dimmed">
+                Dina skapade inlägg kommer visas här
+              </Text>
+            </Paper>
+          </Tabs.Panel>
         </Tabs>
 
         {/* Quick Stats */}
@@ -311,36 +369,40 @@ export default function TeamDashboardPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="grid md:grid-cols-3 gap-6 mt-8"
         >
-          <Card className="bg-blue-50 border-blue-200">
-            <CardBody className="p-6 text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">
+          <SimpleGrid cols={{ base: 1, md: 3 }} spacing="md">
+            <Paper p="md" ta="center" bg="blue.0">
+              <Group justify="center" mb="xs">
+                <Users size={24} color="var(--mantine-color-blue-6)" />
+              </Group>
+              <Text size="xl" fw={700} c="blue.6" mb="xs">
                 {players.length}
-              </div>
-              <p className="text-sm text-gray-600">Spelare i truppen</p>
-            </CardBody>
-          </Card>
-          
-          <Card className="bg-green-50 border-green-200">
-            <CardBody className="p-6 text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">
+              </Text>
+              <Text size="sm" c="dimmed">Spelare i truppen</Text>
+            </Paper>
+            
+            <Paper p="md" ta="center" bg="green.0">
+              <Group justify="center" mb="xs">
+                <Target size={24} color="var(--mantine-color-green-6)" />
+              </Group>
+              <Text size="xl" fw={700} c="green.6" mb="xs">
                 {POST_TEMPLATES.length}
-              </div>
-              <p className="text-sm text-gray-600">Tillgängliga mallar</p>
-            </CardBody>
-          </Card>
-          
-          <Card className="bg-yellow-50 border-yellow-200">
-            <CardBody className="p-6 text-center">
-              <div className="text-3xl font-bold text-yellow-600 mb-2">
+              </Text>
+              <Text size="sm" c="dimmed">Tillgängliga mallar</Text>
+            </Paper>
+            
+            <Paper p="md" ta="center" bg="yellow.0">
+              <Group justify="center" mb="xs">
+                <Infinity size={24} color="var(--mantine-color-yellow-6)" />
+              </Group>
+              <Text size="xl" fw={700} c="yellow.6" mb="xs">
                 ∞
-              </div>
-              <p className="text-sm text-gray-600">Möjligheter</p>
-            </CardBody>
-          </Card>
+              </Text>
+              <Text size="sm" c="dimmed">Möjligheter</Text>
+            </Paper>
+          </SimpleGrid>
         </motion.div>
-      </main>
-    </div>
+      </Container>
+    </Box>
   );
 }

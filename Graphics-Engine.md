@@ -8,9 +8,10 @@ Graphics Engine är ett agnostiskt renderingssystem byggt kring en kraftfull Can
 
 ### Komponenter
 ```
-types.ts        - Core graphics engine med Block/Floater klasser
+types.ts          - Core graphics engine med Block/Floater klasser
+layouts.ts        - Standard layouter (6 st CSS Grid templates)
 HaboComponents.ts - Organisationsspecifika komponenter 
-brand.ts        - Brand-konfiguration för Habo IF
+brand.ts          - Brand-konfiguration för Habo IF
 ```
 
 ### Flöde
